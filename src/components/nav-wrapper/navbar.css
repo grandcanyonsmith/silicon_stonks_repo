@@ -1,0 +1,24 @@
+.navbar {
+    /* height: 50px; */
+    background: black;
+
+    margin: 10px 10px;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr [items-s] 1fr [items-e];
+
+    align-items: center;
+    padding-left: 14px;
+}
+
+.navbar__items {
+    grid-column: items-s/items-e;
+    justify-self: right;
+}
+
+.navbar__items li {
+    display: inline-block;
+    padding: 0px 14px;
+    border-style: solid;
+    margin: 10px;
+}

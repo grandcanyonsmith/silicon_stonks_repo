@@ -1,0 +1,83 @@
+
+
+.landing {
+    display: grid;
+    /* height: 100%; */
+    width: 100%;
+    grid-template-rows: 100px [title-s] 1fr [title-e] 1fr [stonks-s] 1fr [stonks-e] 1fr;
+    grid-template-columns: 1fr;
+    
+}
+
+.landing__title {
+    grid-row: title-s/title-e;
+    font-size: 70px;
+    
+}
+
+.landing__stock-list {
+    grid-row: stonks-s/stonks-e;
+    font-size: 40px;
+        text-shadow: -0.01rem -0.01rem .5px #FFFFFF,
+        0.02rem -0.02rem .5px #FFFFFF,
+        -0.01rem 0.01rem .5px #FFFFFF,
+        0.01rem 0.01rem .5px #FFFFFF,
+        0 0 2.5px 	#FFFFFF,
+        0 0 5px #f8f8ff;
+    font-weight: 50;
+    margin-top: -2em;
+    
+}
+.landing__stock-list li:nth-child(1):hover {
+    transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+.landing__stock-list li:nth-child(2):hover {
+    transform: scale(1.225); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+
+/* #letter1:hover > div#top-div2 {
+    /* code */
+/* } */ */
+
+.landing__stock-list li:nth-child(2):hover > .landing__stock-list li:nth-child(3) {
+    transform: scale(3.225); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+
+.landing__stock-list li:nth-child(3):hover {
+    transform: scale(1.25); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    
+  }
+.landing__stock-list li:nth-child(4):hover {
+    transform: scale(1.35); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+.landing__stock-list li:nth-child(5):hover {
+    transform: scale(1.4); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+
+
+.landing__stock-list li {
+    margin-bottom: 0.1em;
+}
+.landing__stock-list li:nth-child(1) {
+    font-size: 40px;
+}
+.landing__stock-list li:nth-child(2) {
+    font-size: 35px;
+}
+.landing__stock-list li:nth-child(3) {
+    font-size: 30px;
+}
+.landing__stock-list li:nth-child(4) {
+    font-size: 25px;
+}
+.landing__stock-list li:nth-child(5) {
+    font-size: 20px;
+}
+
+.landing__title,
+.landing__stock-list {
+    grid-column: 1/-1;
+    text-align: center;
+}
+
+
