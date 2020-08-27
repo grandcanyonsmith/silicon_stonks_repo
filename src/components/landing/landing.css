@@ -25,7 +25,7 @@
         0 0 2.5px 	#FFFFFF,
         0 0 5px #f8f8ff;
     font-weight: 50;
-    margin-top: -2em;
+    margin-top: -2.1em;
     
 }
 .landing__stock-list li:nth-child(1):hover {
@@ -53,27 +53,40 @@
 .landing__stock-list li:nth-child(5):hover {
     transform: scale(1.4); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   }
+  .landing__stock-list li:nth-child(6):hover {
+    transform: scale(1.45); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
 
 
 .landing__stock-list li {
-    margin-bottom: 0.1em;
+    margin-bottom: 0.12em;
 }
 .landing__stock-list li:nth-child(1) {
     font-size: 40px;
 }
 .landing__stock-list li:nth-child(2) {
-    font-size: 35px;
+    font-size: 37px;
 }
 .landing__stock-list li:nth-child(3) {
-    font-size: 30px;
-}
-.landing__stock-list li:nth-child(4) {
     font-size: 25px;
 }
-.landing__stock-list li:nth-child(5) {
-    font-size: 20px;
+.landing__stock-list li:nth-child(4) {
+    font-size: 22.5px;
 }
-
+.landing__stock-list li:nth-child(5) {
+    font-size: 15px;
+}
+.landing__stock-list li:nth-child(6) {
+    font-size: 10px;
+    
+}
+.landing__stock-list li:nth-child(7) {
+    font-size: 10px;
+}
+.landing__stock-list li:nth-child(8) {
+    font-size: 10px;
+    padding: 1px;
+}
 .landing__title,
 .landing__stock-list {
     grid-column: 1/-1;

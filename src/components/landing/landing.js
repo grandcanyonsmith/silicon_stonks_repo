@@ -4,10 +4,12 @@ import './landing.scss';
 import NavWrapper from '../nav-wrapper/navWrapper.js';
 
 const STONKS = [
-    "Pinterest",
-    "Quoavo",
-    "Fiverr",
-    "AMD"
+    "Pinterest @ $40, Jan. '22",
+    "Fiverr @ $130, Feb. '22",
+    "Google @ $2,000, Jun. '21",
+    "Qorvo @ $140, Feb. '21",
+    "AMD @ $100, Jun. '21",
+    "Vivnt @ $19.00, Jan. '22"
 ]
 
 class Landing extends Component { 
