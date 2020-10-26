@@ -19,8 +19,8 @@ const dev = app.get('env') !== 'production';
 const PORT = process.env.PORT || 5000;
 const db = mongoose.connection;
 
+app.use(express.static(path.join(__dirname, "../build")));
 app.use(cookieparser())
-app.use(bodyParser.json());
 app.use(helmet());
 app.use(cors());
 app.use(morgan('common'));
@@ -29,17 +29,15 @@ app.use((err, req, res, next) => {
 });
 
 // // Handle Sessions
-// app.use(session({
-//   secret: process.env.sessionSecret,
-//   saveUninitialized: true,
-//   resave: true
-// }));
+app.use(session({
+  secret: process.env.sessionSecret
+}));
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use('/api', routes);
 
 // if (!dev) {
 //   app.use(express.static(path.resolve(__dirname, '../build')));
@@ -48,8 +46,7 @@ app.use('/api', routes);
 //   });
 // };
 
-app.use(express.static(path.join(__dirname, "../build")));
-
+app.use('/api', routes);
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
