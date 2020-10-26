@@ -36,7 +36,8 @@
     "eject": "react-scripts eject",
     "configure": "./server/bin/configuredb.sh",
     "server": "nodemon server/app.js",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "production": "npm run build && NODE_ENV=production server/app.js"
   },
   "eslintConfig": {
     "extends": "react-app"
