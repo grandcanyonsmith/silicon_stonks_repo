@@ -19,25 +19,25 @@ const dev = app.get('env') !== 'production';
 const PORT = process.env.PORT || 5000;
 const db = mongoose.connection;
 
-// app.use(cookieparser())
-// app.use(bodyParser.json());
-// app.use(helmet());
-// app.use(cors());
-// app.use(morgan('common'));
-// app.use((err, req, res, next) => {
-//   res.json(err);
-// });
+app.use(cookieparser())
+app.use(bodyParser.json());
+app.use(helmet());
+app.use(cors());
+app.use(morgan('common'));
+app.use((err, req, res, next) => {
+  res.json(err);
+});
 
-// // Handle Sessions
-// app.use(session({
-//   secret: process.env.sessionSecret,
-//   saveUninitialized: true,
-//   resave: true
-// }));
+// Handle Sessions
+app.use(session({
+  secret: process.env.sessionSecret,
+  saveUninitialized: true,
+  resave: true
+}));
 
-// // Passport
-// app.use(passport.initialize());
-// app.use(passport.session());
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // app.use('/api', routes);
 
