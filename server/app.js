@@ -7,17 +7,10 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cookieparser = require('cookie-parser');
 const session = require('express-session');
-const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const routes = require('./routes');
-const mongodb = require('mongodb');
-const mongoose = require('mongoose');
 require('dotenv').config();
-const expressValidator = require('express-validator');
-const dev = app.get('env') !== 'production';
 const PORT = process.env.PORT || 5000;
-const db = mongoose.connection;
 
 app.use(express.static(path.join(__dirname, "../build")));
 app.use(cookieparser())
@@ -38,13 +31,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-// if (!dev) {
-//   app.use(express.static(path.resolve(__dirname, '../build')));
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
-//   });
-// };
 
 app.use('/api', routes);
 app.get("*", function (req, res) {
