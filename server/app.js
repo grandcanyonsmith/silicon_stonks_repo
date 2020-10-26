@@ -26,7 +26,7 @@ app.use(session({
   secret: process.env.sessionSecret
 }));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Passport
 app.use(passport.initialize());
