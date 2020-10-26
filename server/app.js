@@ -28,18 +28,18 @@ app.use((err, req, res, next) => {
   res.json(err);
 });
 
-// Handle Sessions
-app.use(session({
-  secret: process.env.sessionSecret,
-  saveUninitialized: true,
-  resave: true
-}));
+// // Handle Sessions
+// app.use(session({
+//   secret: process.env.sessionSecret,
+//   saveUninitialized: true,
+//   resave: true
+// }));
 
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use('/api', routes);
+app.use('/api', routes);
 
 // if (!dev) {
 //   app.use(express.static(path.resolve(__dirname, '../build')));
