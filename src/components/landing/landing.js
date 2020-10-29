@@ -9,7 +9,7 @@ const STONKS = [
     "Pinterest",
     "Docusign",
     "Amazon",
-    "Hubpot",
+    "Hubspot",
     "Fiverr",
     "Qorvo"
 ]
