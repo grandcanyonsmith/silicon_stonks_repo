@@ -72,15 +72,29 @@ body {
     
 }
 
-.informataion {
+.information {
   display: flex;
   flex-direction: column;
-  text-decoration: underline;
+  justify-content: center;
+  justify-items: center;
+  
+}
+
+.instructions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  padding: 10px;
 }
 
 .about-us {
   display: flex;
   flex-direction: row;
   justify-self: center;
+  justify-content: center;
+  justify-items: center;
   padding-top: -50px;
+  padding: 10px;
 }

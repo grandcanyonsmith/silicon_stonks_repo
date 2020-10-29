@@ -83,7 +83,7 @@ function LoginPage(props) {
           <div className="login-button" onClick={handleSave}> Login </div>
           <div className="create-account-option">
               <div>
-                  <h1>Don't have an account? Create an account <Link to='/register'>here</Link></h1>
+                  <h2>Don't have an account? Create an account <Link to='/register'>here</Link></h2>
               </div>
           </div>
           
