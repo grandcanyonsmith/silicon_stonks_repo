@@ -55,8 +55,8 @@ function LoginPage(props) {
         </div>
         <div className="instructions">
         <h2>Step 1. Create an account.</h2>
-        <h2>Step 2. Get the best tech-stock notifications</h2>
-        <h2>on the first of every month.</h2>
+        <h2>Step 2. Get notifications on the best tech-stock picks.</h2>
+        <h2>        on the 1st of every month.</h2>
         </div>
         
       {/* <div className="sign-up-page-buttons"> */}
