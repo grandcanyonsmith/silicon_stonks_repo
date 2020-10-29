@@ -35,12 +35,12 @@ function NavBar(props) {
         }
     }
   
-    // return (
-    //   <div className={classes.root}>
-    //     <Button variant="contained">Info</Button>
-    //     {authButton()}
-    //   </div>
-    // );
+    return (
+      <div className={classes.root}>
+        {/* <Button variant="contained">Info</Button> */}
+        {authButton()}
+      </div>
+    );
   }
 
 const mapStateToProps = (state) => {
