@@ -1,6 +1,28 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import './login-page.css';
 import './login-page.scss';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import {signIn} from '../../actions/users';
+import FlashMessage from 'react-flash-message';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+  field: {
+    backgroundColor: 'white',
+    margin: '10px'
+  },
+  form: {
+    backgroundColor: 'white'
+  }
+}));
 
 const STONKS = [
     "Pinterest", 
@@ -8,66 +30,61 @@ const STONKS = [
     "AMD"
 ]
 
-class LoginPage extends Component { 
-    constructor(props){
-        super(props)
-        this.state = {
-            email: ''
-        }
-    }
+function LoginPage(props) { 
+  const [user, setUser] = useState({
+    email: "",
+    password: ""
+  });
+  const classes = useStyles();
 
-    handleSubmit = (event) => {
-        event.preventDefault()
-        const data = this.state
-        console.log(data)
-    }
+  const handleChange = name => event => {
+    setUser({ ...user, [name]: event.target.value });
+  };
 
-    handleInputChange = (event) => {
-        event.preventDefault()
-        console.log(event)
-        console.log(event.target.name)
-        console.log(event.target.value)
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
-
-  render() {
-      const {email} = this.state
-    return (
-      <div className="login-page">
-        {/* <div className="sign-up-page-buttons"> */}
-          <div className="login-info-column">
-          <div className="login-items">
-            <div className="sign-up-text">
-                <h1>Sign In</h1>
-            </div>
-            <div className="sign-up-email"> Email </div>
-            <form onSubmit={this.handleSubmit} name='email' onChange={this.handleInputChange}>
-                 <input type="text" placeholder="Email"/>
-            </form>
-            <div className="sign-up-password"> Password </div>
-            <form onSubmit={this.handleSubmit} name='password' onChange={this.handleInputChange}>
-                <input type="text" placeholder="Password"/>
-            </form>
-            <div className="login-button"> Login </div>
-            <div className="create-account-option">
-                <div>
-                    <h1>Don't have an account? Create an account here</h1>
-                </div>
-                <div>
-                    <button onClick={this.clickHandler}>Here</button></div>
-            </div>
-            
-
-          </div>
-          </div>
-          {/* <div className="column"></div> */}
-        {/* </div> */}
-      </div>
-    )
+  const handleSave = e => {
+    const {dispatch} = props;
+    dispatch(signIn(user))
+    e.preventDefault()
   }
+
+  return (
+    <div className="login-page">
+      {/* <div className="sign-up-page-buttons"> */}
+        <div className="login-info-column">
+        <div className="login-items">
+          <div className="sign-up-text">
+              <h1>Sign In</h1>
+          </div>
+          <TextField 
+            className={classes.field} 
+            id="standard-required" 
+            label="Email" 
+            required
+            defaultValue="" 
+            onChange={handleChange('email')}
+          />
+          <TextField 
+            className={classes.field} 
+            id="standard-required" 
+            label="Password" 
+            type='password'
+            required
+            defaultValue="" 
+            onChange={handleChange('password')}
+          />
+
+          <div className="login-button" onClick={handleSave}> Login </div>
+          <div className="create-account-option">
+              <div>
+                  <h1>Don't have an account? Create an account <Link to='/register'>here</Link></h1>
+              </div>
+          </div>
+          
+
+        </div>
+        </div>
+    </div>
+  )
 }
 
-export default LoginPage;
+export default withRouter(connect()(LoginPage));

@@ -1,75 +1,57 @@
-const { Router } = require('express');
+const mongoose = require('mongoose');
+const router = require('express').Router();   
+const User = mongoose.model('User');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const { body, validationResult } = require('express-validator');
+const utils = require('../lib/utils');
 
-const User = require('../models/user');
+// TODO
+router.get('/protected', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    res.status(200).json({ success: true, msg: 'You are authorized!'});
+});
 
-const router = Router();
+router.post('/login', function(req, res, next){
+    const {email, password} = req.body;
+    User.findOne({ email: email })
+        .then((user) => {
+            if (!user) {
+                res.status(401).json({ success: false, msg: "could not find user" });
+            }
+            const isValid = utils.validPassword(password, user.hash, user.salt);
 
-router.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-      res.json({user: req.user})
-  });
-
-  passport.serializeUser(function(user, done) {
-    done(null, user.id);
-  });
-  
-  passport.deserializeUser(function(id, done) {
-    User.getUserById(id, function(err, user) {
-      done(err, user);
-    });
-  });
-
-passport.use(new LocalStrategy(
-    {usernameField:"email", passwordField:"password"},
-    function(username, password, done) {
-    User.getUserByEmail(username, (err, user) => {
-        if(err) throw err;
-        if(!user){
-            return done(null, false, {message: 'Unknown Email'})
-        }
-
-        User.comparePassword(password, user.password, (err, isMatch) => {
-            if(err) return done(err);
-            if(isMatch){
-                return done(null, user);
+            if (isValid) {
+                const tokenObject = utils.issueJWT(user);
+                res.status(200).json({ success: true, user, token: tokenObject.token, expiresIn: tokenObject.expires })
             } else {
-                return done(null, false, {message: "Invalid Password"})
+                res.status(401).json({ success: false, msg: 'you entered the incorrect password'})
             }
         })
-    })
-}))
-
-router.post('/register', [
-    body('first').notEmpty(),
-    body('last').notEmpty(),
-    body('phone').isMobilePhone(),
-    body('email').isEmail(),
-    body('first').notEmpty(),
-], (req, res, next) => {
-    const {first, last, phone, email, password1, password2} = req.body;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    } else {
-        const newUser = new User({
-            first,
-            last,
-            phone, 
-            email, 
-            password: password1
-        });
-
-        User.createUser(newUser, (err, user) => {
-            if(err) throw err;
-            
-            res.json(user)
+        .catch((err) => {
+            next(err);
         })
-    }
-})
+});
 
+router.post('/register', function(req, res, next){
+    const {first, last, email, phone, password} = req.body;
+    const saltHash = utils.genPassword(password);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
+    const newUser = new User({
+        first,
+        last,
+        email,
+        phone,
+        hash,
+        salt
+    })
+    
+    newUser.save()
+        .then((user) => {
+            const jwt = utils.issueJWT(user);
+
+            res.json({success: true, user, token: jwt.token, expiresIn: jwt.expires});
+        })
+        .catch(err => next(err));
+});
 
 module.exports = router;

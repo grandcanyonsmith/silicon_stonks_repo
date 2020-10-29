@@ -1,36 +1,36 @@
-const express = require("express");
-const app = express();
-const path = require("path");
-const bodyParser = require('body-parser');
+const express = require('express');
 const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const cookieparser = require('cookie-parser');
-const session = require('express-session');
+const path = require('path');
 const passport = require('passport');
 const routes = require('./routes');
-require('dotenv').config();
 const PORT = process.env.PORT || 5000;
+require('./models/user')
+
+require('dotenv').config();
+
+// Create the Express application
+var app = express();
+
+// Configures the database and opens a global connection that can be used in any module with `mongoose.connection`
+require('./config/database');
+
+// Must first load the models
+require('./models/user');
+
+// Pass the global passport object into the configuration function
+require('./config/passport')(passport);
+
+// This will initialize the passport object on every request
+app.use(passport.initialize());
+
+// Instead of using body-parser middleware, use the new Express implementation of the same thing
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+// Allows our React application to make HTTP requests to Express application
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, "../build")));
-app.use(cookieparser())
-app.use(helmet());
-app.use(cors());
-app.use(morgan('common'));
-app.use((err, req, res, next) => {
-  res.json(err);
-});
-
-// // Handle Sessions
-app.use(session({
-  secret: process.env.sessionSecret
-}));
-
-app.use(bodyParser.json());
-
-// Passport
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/api', routes);
 app.get("*", function (req, res) {
