@@ -3,6 +3,7 @@ const router = require('express').Router();
 const User = mongoose.model('User');
 const passport = require('passport');
 const utils = require('../lib/utils');
+const axios = require('axios');
 
 // TODO
 router.get('/protected', passport.authenticate('jwt', {session: false}), (req, res, next) => {
@@ -44,11 +45,17 @@ router.post('/register', function(req, res, next){
         hash,
         salt
     })
-    
+
     newUser.save()
         .then((user) => {
             const jwt = utils.issueJWT(user);
-
+            axios.post("https://hooks.zapier.com/hooks/catch/1739571/oqwdn6u/", user)
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
             res.json({success: true, user, token: jwt.token, expiresIn: jwt.expires});
         })
         .catch(err => next(err));

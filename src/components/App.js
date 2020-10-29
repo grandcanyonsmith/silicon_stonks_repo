@@ -4,6 +4,7 @@ import Landing from "./landing/landing";
 import LoginPage from "./login-page/login-page";
 import Signuppage from "./sign-up-page/sign-up-page";
 import Flash from './Flash/flash';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 
