@@ -49,6 +49,13 @@ function LoginPage(props) {
 
   return (
     <div className="login-page">
+      <div className="information">
+        <div className="about-us">Welcome to Silicon Stonks.</div>
+        <div className="instructions">
+        <h1>Step 1. Create an account.</h1>
+        <h1>Step 2. Get monthly tech-stock updates.</h1>
+        </div>
+        
       {/* <div className="sign-up-page-buttons"> */}
         <div className="login-info-column">
         <div className="login-items">
@@ -81,6 +88,7 @@ function LoginPage(props) {
           </div>
           
 
+        </div>
         </div>
         </div>
     </div>

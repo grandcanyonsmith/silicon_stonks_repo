@@ -71,3 +71,16 @@ body {
 .landing__titles {
     
 }
+
+.informataion {
+  display: flex;
+  flex-direction: column;
+  text-decoration: underline;
+}
+
+.about-us {
+  display: flex;
+  flex-direction: row;
+  justify-self: center;
+  padding-top: -50px;
+}

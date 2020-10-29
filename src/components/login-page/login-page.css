@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 15em;
+    margin-top: 10em;
 }
 
 .sign-up-page-buttons {
@@ -75,6 +75,7 @@
 .login-info-column {
     display: flex;
     flex-direction: column;
+    padding-top: 80px;
 
 }
 
@@ -89,3 +90,15 @@
     flex-direction: row;
     justify-content: center;
 }
+
+.about-us {
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    text-decoration: underline;
+  }
+
+  .informataion {
+    display: flex;
+    flex-direction: column;
+  }
