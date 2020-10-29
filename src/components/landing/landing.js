@@ -8,8 +8,8 @@ import {Redirect} from 'react-router-dom';
 const STONKS = [
     "Pinterest",
     "Docusign",
-    "Amazon",
     "Hubspot",
+    "Amazon",
     "Fiverr",
     "Qorvo"
 ]
