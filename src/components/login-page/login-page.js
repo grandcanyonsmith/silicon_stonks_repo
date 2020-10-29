@@ -50,10 +50,12 @@ function LoginPage(props) {
   return (
     <div className="login-page">
       <div className="information">
-        <div className="about-us">Welcome to Silicon Stonks.</div>
+        <div className="about-us">
+          <h1>Welcome to Silicon Stonks.</h1>
+        </div>
         <div className="instructions">
-        <h1>Step 1. Create an account.</h1>
-        <h1>Step 2. Get monthly tech-stock updates.</h1>
+        <h2>Step 1. Create an account.</h2>
+        <h2>Step 2. Get monthly tech-stock updates.</h2>
         </div>
         
       {/* <div className="sign-up-page-buttons"> */}
