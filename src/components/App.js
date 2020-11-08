@@ -4,7 +4,9 @@ import Landing from "./landing/landing";
 import LoginPage from "./login-page/login-page";
 import Signuppage from "./sign-up-page/sign-up-page";
 import Flash from './Flash/flash';
+import Profile from './Profile/profile'
 import ProtectedRoute from './ProtectedRoute';
+import Thanks from "./Profile/thanks";
 
 function App() {
 
@@ -15,6 +17,8 @@ function App() {
         <Route exact path='/' component={Landing} />
         <Route exact path='/login' component={LoginPage} />
         <Route exact path='/register' component={Signuppage} />
+        <Route exact path='/profile' component={Profile} />
+        <Route exact path='/thank-you' component={Thanks} />
     </Switch>
     </div>
   );

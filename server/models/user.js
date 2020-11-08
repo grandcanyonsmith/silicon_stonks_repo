@@ -8,6 +8,11 @@ const UserSchema = new mongoose.Schema({
         unique: true
     },
     phone: String,
+    stripeCustomerId: String,
+    subscribed: {
+        type: Boolean,
+        default: false
+    },
     hash: String,
     salt: String
 });

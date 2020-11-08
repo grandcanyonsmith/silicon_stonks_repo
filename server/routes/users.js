@@ -3,6 +3,7 @@ const router = require('express').Router();
 const User = mongoose.model('User');
 const passport = require('passport');
 const utils = require('../lib/utils');
+const stripe = require('stripe')(process.env.stripeToken);
 const axios = require('axios');
 
 // TODO
@@ -60,5 +61,35 @@ router.post('/register', function(req, res, next){
         })
         .catch(err => next(err));
 });
+
+router.get('/profile', passport.authenticate('jwt', {session: false}), async (req, res, next) => {
+    const {first, last, email, phone, stripeCustomerId, subscribed} = req.user;
+    if (stripeCustomerId) {
+        const returnUrl = process.env.returnUrl;
+        const portalSession = await stripe.billingPortal.sessions.create({
+          customer: stripeCustomerId,
+          return_url: returnUrl
+        });
+        res.json({user: {
+            first,
+            last,
+            email,
+            phone,
+            stripeCustomerId, 
+            subscribed,
+            manageUrl: portalSession.url
+        }})
+    }else {
+        res.json({user: {
+            first,
+            last, 
+            email,
+            phone,
+            stripeCustomerId,
+            subscribed,
+            manageUrl: ''
+        }})
+    }
+}) 
 
 module.exports = router;
