@@ -61,7 +61,7 @@ function Profile() {
         const token = localStorage.getItem('token')
     
         // Call your backend to create the Checkout Session
-        const response = await fetch('http://localhost:5000/api/stripe/create-checkout-session', { method: 'POST', headers: {
+        const response = await fetch('/api/stripe/create-checkout-session', { method: 'POST', headers: {
             'Authorization': token
         } });
     
