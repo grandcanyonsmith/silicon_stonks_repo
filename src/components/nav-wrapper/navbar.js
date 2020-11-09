@@ -37,9 +37,9 @@ function NavBar(props) {
   
     return (
       <div className={classes.root}>
-        <Link className={classes.link} to='/profile'>
+        {/* <Link className={classes.link} to='/profile'>
           <Button variant="contained">Profile</Button>
-        </Link>
+        </Link> */}
         {authButton()}
       </div>
     );
