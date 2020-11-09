@@ -94,6 +94,7 @@ router.post('/create-checkout-session',(passport.authenticate('jwt', {session: f
             console.log(`User ${event.data.object.metadata.userId} updated!`)
           }
         })
+        console.log("Customer created after Checkout")
         break;
       case 'customer.subscription.updated':
             // When the satus is updated to active or trial
@@ -108,6 +109,7 @@ router.post('/create-checkout-session',(passport.authenticate('jwt', {session: f
               console.log(res)
             }
           })
+          console.log("Customer is now active")
         break;
       case 'customer.subscription.deleted':
             // When the satus is updated to canceled
@@ -121,6 +123,7 @@ router.post('/create-checkout-session',(passport.authenticate('jwt', {session: f
               console.log(res)
             }
           })
+          console.log("Customer canceled")
         break;
       // ... handle other event types
       default:
