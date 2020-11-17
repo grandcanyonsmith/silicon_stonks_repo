@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'green',
         display: 'inline-block',
         fontSize: 65,
-        verticalAlign: 'bottom'
+        verticalAlign: 'bottom',
     },
     negativeIcon: {
         color: 'red',
@@ -88,7 +88,7 @@ function Stock(props) {
                 positive: false,
                 priceChange: price,
                 percentChange: percent
-
+                
             })
             setLoading(false)
           }
@@ -100,7 +100,7 @@ function Stock(props) {
               return(
                 <div className={classes.container}>
                     <a key={key} className={classes.link} href={url} target='_blank' rel="noopener noreferrer"><li>{name}</li></a>
-                    <ArrowDropUpIcon className={classes.positiveIcon}/>
+                    <ArrowDropUpIcon viewBox="-5 -5 24 24" className={classes.positiveIcon}/>
                     <p className={classes.positiveText}>+${stock.priceChange}</p>                   
                     <p className={classes.positiveText}>({stock.percentChange}%)</p>                   
                 </div>
