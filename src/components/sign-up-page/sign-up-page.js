@@ -23,12 +23,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const STONKS = [
-    "Pinterest", 
-    "Fiverr",
-    "AMD"
-]
-
 function Signuppage(props) { 
   const [user, setUser] = useState({
     first: "",

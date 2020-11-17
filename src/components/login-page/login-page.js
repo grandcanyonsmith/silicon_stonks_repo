@@ -6,7 +6,6 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import {signIn} from '../../actions/users';
-import FlashMessage from 'react-flash-message';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,12 +22,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white'
   }
 }));
-
-const STONKS = [
-    "Pinterest", 
-    "Fiverr",
-    "AMD"
-]
 
 function LoginPage(props) { 
   const [user, setUser] = useState({

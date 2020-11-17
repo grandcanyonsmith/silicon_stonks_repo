@@ -5,7 +5,6 @@ import LoginPage from "./login-page/login-page";
 import Signuppage from "./sign-up-page/sign-up-page";
 import Flash from './Flash/flash';
 import Profile from './Profile/profile'
-import ProtectedRoute from './ProtectedRoute';
 import Thanks from "./Profile/thanks";
 import NavWrapper from './nav-wrapper/navWrapper';
 

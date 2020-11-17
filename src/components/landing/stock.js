@@ -66,13 +66,13 @@ function Stock(props) {
             })
         }
         onLoad()
-      }, [])
+      }, [props])
 
       const findChange = (data) => {
-          if(data.todaysData.latestPrice > data.historicalData.close) {
+          if(data.todaysData.latestPrice > data.historicalData.low) {
             //   Positive Change
-            const price = Number.parseFloat(data.todaysData.latestPrice - data.historicalData.close).toFixed(2);
-            const percent = Number.parseFloat((data.todaysData.latestPrice - data.historicalData.close) / data.todaysData.latestPrice * 100).toFixed(2);
+            const price = Number.parseFloat(data.todaysData.latestPrice - data.historicalData.low).toFixed(2);
+            const percent = Number.parseFloat((data.todaysData.latestPrice - data.historicalData.low) / data.todaysData.latestPrice * 100).toFixed(2);
             setStock({
                 positive: true,
                 priceChange: price,
@@ -82,8 +82,8 @@ function Stock(props) {
             setLoading(false)
           } else {
             //   Negative Change
-            const price = Number.parseFloat(data.historicalData.close - data.todaysData.latestPrice).toFixed(2);
-            const percent = Number.parseFloat((data.historicalData.close - data.todaysData.latestPrice) / data.historicalData.close * 100).toFixed(2);
+            const price = Number.parseFloat(data.historicalData.low - data.todaysData.latestPrice).toFixed(2);
+            const percent = Number.parseFloat((data.historicalData.low - data.todaysData.latestPrice) / data.historicalData.low * 100).toFixed(2);
             setStock({
                 positive: false,
                 priceChange: price,
@@ -99,7 +99,7 @@ function Stock(props) {
             //   Positive
               return(
                 <div className={classes.container}>
-                    <a key={key} className={classes.link} href={url} target='_blank'><li>{name}</li></a>
+                    <a key={key} className={classes.link} href={url} target='_blank' rel="noopener noreferrer"><li>{name}</li></a>
                     <ArrowDropUpIcon className={classes.positiveIcon}/>
                     <p className={classes.positiveText}>+${stock.priceChange}</p>                   
                     <p className={classes.positiveText}>({stock.percentChange}%)</p>                   
@@ -109,7 +109,7 @@ function Stock(props) {
             //   Negative
               return(
                 <div>
-                    <a key={key} className={classes.link} href={url} target='_blank'><li>{name}</li></a>
+                    <a key={key} className={classes.link} href={url} target='_blank' rel="noopener noreferrer"><li>{name}</li></a>
                     <ArrowDropDownIcon className={classes.negtiveIcon}/>
                     <p className={classes.negativeText}>-${stock.priceChange}</p>                   
                     <p className={classes.negativeText}>(-{stock.percentChange}%)</p>                     

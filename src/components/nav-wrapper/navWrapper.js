@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './nav-wrapper.css';
-import BackgroundVideo from '../background-video/BackgroundVideo.js'
 import Navbar from './navbar';
 
 function NavWrapper(props) {

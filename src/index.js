@@ -5,11 +5,9 @@ import App from './components/App';
 import { Provider } from 'react-redux';
 import {store} from './store';
 import './index.css';
-import Landing from './components/landing/landing';
 import * as serviceWorker from './serviceWorker';
 import './fonts/Computer-Regular.ttf'
 
-import NavWrapper from './components/nav-wrapper/navWrapper.js';
 
 ReactDOM.render(
   <Provider store={store}>

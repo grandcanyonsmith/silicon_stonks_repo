@@ -68,10 +68,6 @@ function Profile() {
         onLoad()
       }, [])
 
-      const toggleLoading = () => {
-          setLoading(!loading)
-      }
-
       const handleClick = async (event) => {
         // Get Stripe.js instance
         const stripe = await stripePromise;

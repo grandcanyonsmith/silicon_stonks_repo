@@ -1,20 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './landing.css';
 import './landing.scss';
-import NavWrapper from '../nav-wrapper/navWrapper.js';
 import { isLoggedIn } from '../../auth';
 import {Redirect} from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import BackgroundVideo from '../background-video/BackgroundVideo';
 import Stock from './stock';
-
-const useStyles = makeStyles((theme) => ({
-  link: {
-    textDecoration: 'none',
-    color: 'white'
-  }
-}));
 
 const STONKS = [
     {key: 1, name: "Pinterest", url: 'https://finance.yahoo.com/quote/PINS/', ticker: 'PINS', date: '20201102'},
@@ -26,7 +17,6 @@ const STONKS = [
 ]
 
 function Landing() { 
-  const classes = useStyles();
 
     if (!isLoggedIn()) {
       return <Redirect to='/login'/>
@@ -44,8 +34,8 @@ function Landing() {
           <ul className='landing__stock-list'>
               {STONKS.map(stonk => {
                   return (
-                    <div>
-                      <Stock key={stonk.key} url={stonk.url} name={stonk.name} ticker={stonk.ticker} date={stonk.date}/>
+                    <div key={stonk.key}>
+                      <Stock url={stonk.url} name={stonk.name} ticker={stonk.ticker} date={stonk.date}/>
                     </div>
                   )
               })}
