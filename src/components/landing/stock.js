@@ -16,26 +16,26 @@ const useStyles = makeStyles((theme) => ({
     positiveIcon: {
         color: 'green',
         display: 'inline-block',
-        fontSize: 75,
+        fontSize: 65,
         verticalAlign: 'bottom'
     },
     negativeIcon: {
         color: 'red',
         display: 'inline-block',
-        fontSize: 75,
+        fontSize: 65,
         verticalAlign: 'bottom'
     },
     container: {
     },
     positiveText: {
         color: 'green',
-        fontSize: 30,
+        fontSize: 25,
         display: 'inline-block',
         margin: 10
     },
     negativeText: {
         color: 'red',
-        fontSize: 30,
+        fontSize: 25,
         display: 'inline-block',
         margin: 10
     },
