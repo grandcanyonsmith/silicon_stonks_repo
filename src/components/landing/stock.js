@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
         color: 'green',
         fontSize: 25,
         display: 'inline-block',
-        margin: 10
+        margin: 3
     },
     negativeText: {
         color: 'red',
         fontSize: 25,
         display: 'inline-block',
-        margin: 10
+        margin: 3
     },
     loader: {
         margin: 60
