@@ -40,9 +40,9 @@ function NavBar(props) {
         <Link className={classes.link} to='/'>
           <Button className="button" variant="contained">Home</Button>
         </Link>
-        <Link className={classes.link} to='/profile'>
+        {/* <Link className={classes.link} to='/profile'>
           <Button className="button" variant="contained">Profile</Button>
-        </Link>
+        </Link> */}
         {authButton()}
       </div>
     );
