@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
-const stripe = require('stripe')(process.env.stripeToken);
 const User = mongoose.model('User');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 require('dotenv').config();
+const stripe = require('stripe')(process.env.stripeToken);
 
 router.post('/create-checkout-session',(passport.authenticate('jwt', {session: false})), async (req, res) => {
   const priceId = 'price_1HimtzBDP0NXXJ55suerwZ8z'
@@ -26,7 +26,7 @@ router.post('/create-checkout-session',(passport.authenticate('jwt', {session: f
       // the actual Session ID is returned in the query parameter when your customer
       // is redirected to the success page.
       success_url: `${process.env.successUrl}{CHECKOUT_SESSION_ID}`,
-      cancel_url: 'https://example.com/canceled.html',
+      cancel_url: process.env.cancelUrl,
     });
 
     res.json({

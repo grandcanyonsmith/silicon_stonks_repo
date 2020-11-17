@@ -1,12 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { loadStripe } from '@stripe/stripe-js';
+import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import axios from 'axios';
 
 const stripePromise = loadStripe('pk_test_51HimeLBDP0NXXJ55QNgYgxGu9aWmwLIoOQBxjNQVrmBGeFWm4rhLs0ZIPCTJvTIi2pI2rkasyP2x167hYbgRILr000QYsnR0NU');
 
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        '& > * + *': {
+          marginTop: theme.spacing(2),
+        },
+      },
     header: {
         color: 'black'
     },
@@ -17,11 +25,15 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         margin: ' 200px',
         padding: '100px'
+    },
+    button: {
+        backgroundColor: '#3CEC97'
     }
   }));
 
 function Profile() {
     const classes = useStyles();
+    const [loading, setLoading] = useState(true)
     const [user, setUser] = useState({
         first: '',
         last: '',
@@ -38,6 +50,7 @@ function Profile() {
             axios.get('/api/users/profile', {headers: { 'Authorization': token}})
             .then(res => {
                 const {first, last, phone, email, stripeCustomerId, subscribed, manageUrl} = res.data.user;
+                setLoading(false)
                 setUser({
                     first,
                     last,
@@ -54,6 +67,10 @@ function Profile() {
         }
         onLoad()
       }, [])
+
+      const toggleLoading = () => {
+          setLoading(!loading)
+      }
 
       const handleClick = async (event) => {
         // Get Stripe.js instance
@@ -79,6 +96,15 @@ function Profile() {
         }
       };
 
+    if (loading) {
+        return (
+            <div className={classes.container}>
+                <div className={classes.profile}>
+                    <LinearProgress />
+                </div>
+            </div>
+        )
+    }
     return (
         <div className={classes.container}>
             <div className={classes.profile}>
@@ -95,8 +121,8 @@ function Profile() {
                     Email - {user.email}
                 </h1>
                 {user.subscribed ? 
-                    <a href={user.manageUrl}><button>Manage Subscription</button></a> : 
-                    <button role='link' onClick={handleClick}>Subscribe Now</button>
+                    <Button href={user.manageUrl} className={classes.button}>Manage Subscription</Button> : 
+                    <Button className={classes.button} role='link' onClick={handleClick}>Subscribe Now</Button>
                 }
             </div>
         </div>

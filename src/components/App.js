@@ -7,11 +7,13 @@ import Flash from './Flash/flash';
 import Profile from './Profile/profile'
 import ProtectedRoute from './ProtectedRoute';
 import Thanks from "./Profile/thanks";
+import NavWrapper from './nav-wrapper/navWrapper';
 
 function App() {
 
   return (
     <div id='appMain'>
+    <NavWrapper>
     <Flash/>
     <Switch>
         <Route exact path='/' component={Landing} />
@@ -20,6 +22,7 @@ function App() {
         <Route exact path='/profile' component={Profile} />
         <Route exact path='/thank-you' component={Thanks} />
     </Switch>
+    </NavWrapper>
     </div>
   );
 }

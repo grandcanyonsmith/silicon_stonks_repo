@@ -3,17 +3,15 @@ import './nav-wrapper.css';
 import BackgroundVideo from '../background-video/BackgroundVideo.js'
 import Navbar from './navbar';
 
-class NavWrapper extends Component {
-    render() {
-        const { className } = this.props;
+function NavWrapper(props) {
+        const { className } = props;
         return (
             <div className={`nav-wrapper ${className ? className : ''}`}>
                 <Navbar className='nav-wrapper__navbar'/>
-                <BackgroundVideo className='nav-wrapper__video'/>
-                {this.props.children}
+                {/* <BackgroundVideo className='nav-wrapper__video'/> */}
+                {props.children}
             </div>
         )
     }
-}
 
 export default NavWrapper;

@@ -3,6 +3,7 @@ const router = require('express').Router();
 const User = mongoose.model('User');
 const passport = require('passport');
 const utils = require('../lib/utils');
+require('dotenv').config();
 const stripe = require('stripe')(process.env.stripeToken);
 const axios = require('axios');
 
