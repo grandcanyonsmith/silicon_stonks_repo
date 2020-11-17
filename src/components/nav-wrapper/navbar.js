@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import {isLoggedIn, logout} from '../../auth';
+import '../nav-wrapper/navbar.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,12 +24,12 @@ function NavBar(props) {
     const authButton = () => {
         if(isLoggedIn()) {
             return (
-                <Button variant="contained" onClick={() => logout()}>Logout</Button>
+                <Button className="button" variant="contained" onClick={() => logout()}>Logout</Button>
             )
         } else {
             return (
                 <Link className={classes.link} to='/login'>
-                    <Button variant="contained">Login</Button>
+                    <Button className="button" variant="contained">Login</Button>
                 </Link>
             )
         }
@@ -37,11 +38,11 @@ function NavBar(props) {
     return (
       <div className={classes.root}>
         <Link className={classes.link} to='/'>
-          <Button variant="contained">Home</Button>
+          <Button className="button" variant="contained">Home</Button>
         </Link>
-        {/* <Link className={classes.link} to='/profile'>
-          <Button variant="contained">Profile</Button>
-        </Link> */}
+        <Link className={classes.link} to='/profile'>
+          <Button className="button" variant="contained">Profile</Button>
+        </Link>
         {authButton()}
       </div>
     );

@@ -22,3 +22,8 @@
     border-style: solid;
     margin: 10px;
 }
+
+.button {
+    color: white !important;
+    background-color:black !important;
+}
