@@ -88,3 +88,21 @@
     grid-column: 1/-1;
     text-align: center;
 }
+
+.percent-change-title {
+    font-size: 17px;
+    display: grid;
+    grid-column: 1 1;
+    grid-template-columns: 1fr 1fr;
+}
+
+.percent-change-column-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: first baseline;
+    margin: 5px;
+    margin-bottom: -10px;
+    text-decoration: underline;
+    margin-left: -11.5px;
+    /* margin-left: -18px; */
+}
