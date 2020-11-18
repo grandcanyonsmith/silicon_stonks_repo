@@ -80,6 +80,7 @@ function LoginPage(props) {
           <div className="create-account-option">
               <div>
                   <h2>Don't have an account? Create an account <Link to='/register'>here</Link></h2>
+                  <h2>Forgot password? Click <Link to='/forgotpassword'>here</Link></h2>
               </div>
           </div>
           

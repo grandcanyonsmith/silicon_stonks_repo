@@ -66,6 +66,24 @@ function issueJWT(user) {
   }
 }
 
+function issueForgotPasswordJWT(user) {
+  const _id = user._id;
+
+  const expiresIn = '7';
+
+  const payload = {
+    sub: _id,
+    iat: Date.now()
+  };
+
+  const signedToken = jsonwebtoken.sign(payload, PRIV_KEY, { expiresIn: expiresIn, algorithm: 'RS256' });
+
+  return {
+    token: signedToken,
+  }
+}
+
 module.exports.validPassword = validPassword;
 module.exports.genPassword = genPassword;
 module.exports.issueJWT = issueJWT;
+module.exports.issueForgotPasswordJWT = issueForgotPasswordJWT;

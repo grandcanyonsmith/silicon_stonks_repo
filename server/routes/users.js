@@ -6,6 +6,7 @@ const utils = require('../lib/utils');
 require('dotenv').config();
 const stripe = require('stripe')(process.env.stripeToken);
 const axios = require('axios');
+const {forgotPassword} = require('../utils/emails/forgotPassword');
 
 // TODO
 router.get('/protected', passport.authenticate('jwt', {session: false}), (req, res, next) => {
@@ -92,5 +93,40 @@ router.get('/profile', passport.authenticate('jwt', {session: false}), async (re
         }})
     }
 }) 
+
+router.post('/forgotpassword', (req, res, next) => {
+    const {email} = req.body;
+    User.findOne({ email: email })
+        .then((user) => {
+            if (!user) {
+                res.status(401).json({ success: false, msg: "could not find user" });
+            }
+                const tokenObject = utils.issueForgotPasswordJWT(user);
+                forgotPassword(tokenObject.token, user.first, user.email)
+                res.status(200).json({ success: true })
+        })
+        .catch((err) => {
+            next(err);
+        })
+})
+
+router.post('/changepassword', passport.authenticate('jwt', {session: false}), (request, response, next) => {
+    const {user} = request;
+    const {password} = request.body;
+    const saltHash = utils.genPassword(password.password1);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+    User.findByIdAndUpdate({_id: user._id}, {
+        salt,
+        hash
+      }, function(err, res) {
+        if(err) {
+          console.log(err)
+        } else {
+          response.json({success: true})
+        }
+     });
+     
+})
 
 module.exports = router;

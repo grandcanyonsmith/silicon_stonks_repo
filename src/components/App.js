@@ -7,6 +7,8 @@ import Flash from './Flash/flash';
 import Profile from './Profile/profile'
 import Thanks from "./Profile/thanks";
 import NavWrapper from './nav-wrapper/navWrapper';
+import ForgotPassword from "./ForgotPassword/forgotPassword";
+import ChangePassword from "./ForgotPassword/changePassword";
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
         <Route exact path='/register' component={Signuppage} />
         <Route exact path='/profile' component={Profile} />
         <Route exact path='/thank-you' component={Thanks} />
+        <Route exact path='/forgotpassword' component={ForgotPassword} />
+        <Route exact path='/forgotpassword/:token' component={ChangePassword} />
     </Switch>
     </NavWrapper>
     </div>

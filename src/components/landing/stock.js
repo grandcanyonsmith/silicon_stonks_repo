@@ -44,75 +44,76 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
+  const STONKS = [
+    {key: 1, name: "Pinterest", url: 'https://finance.yahoo.com/quote/PINS/', ticker: 'PINS', date: '20201102'},
+    {key: 2, name: "Docusign", url: 'https://finance.yahoo.com/quote/DOCU/', ticker: 'DOCU', date: '20201102'},
+    {key: 3, name: "Hubspot", url: 'https://finance.yahoo.com/quote/HUBS/', ticker: 'HUBS', date: '20201102'},
+    {key: 4, name: "Amazon", url: 'https://finance.yahoo.com/quote/AMZN/', ticker: 'AMZN', date: '20201102'},
+    {key: 5, name: "Fiverr", url: 'https://finance.yahoo.com/quote/FVRR/', ticker: 'FVRR', date: '20201102'},
+    {key: 6, name: "Qorvo", url: 'https://finance.yahoo.com/quote/QRVO/', ticker: 'QRVO', date: '20201102'}
+]
+
+const updatedStock = []
+
 function Stock(props) {
     const [loading, setLoading] = useState(true)
-    const [stock, setStock] = useState({
-        positive: null,
-        priceChange: '',
-        percentChange: ''
-    })
+    const [stock, setStock] = useState([])
     const classes = useStyles();
     const {key, url, name} = props;
 
     useEffect(() => {
-        const {ticker, date} = props;
         function onLoad() {
-            axios.get(`/api/stocks/${ticker}/${date}`)
-            .then(res => {
-                findChange(res.data)
-            })
-            .catch(err => {
-                console.log(err)
+            STONKS.map(stonk => {
+                axios.get(`/api/stocks/${stonk.ticker}/${stonk.date}`)
+                .then(res => {
+                    updatedStock.push({stock: stonk, data:res.data})
+                    if (updatedStock.length === STONKS.length) {
+                        sortArr(updatedStock)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
             })
         }
         onLoad()
       }, [props])
 
-      const findChange = (data) => {
-          if(data.todaysData.latestPrice > data.historicalData.low) {
-            //   Positive Change
-            const price = Number.parseFloat(data.todaysData.latestPrice - data.historicalData.low).toFixed(2);
-            const percent = Number.parseFloat((data.todaysData.latestPrice - data.historicalData.low) / data.todaysData.latestPrice * 100).toFixed(2);
-            setStock({
-                positive: true,
-                priceChange: price,
-                percentChange: percent
-
-            })
-            setLoading(false)
-          } else {
-            //   Negative Change
-            const price = Number.parseFloat(data.historicalData.low - data.todaysData.latestPrice).toFixed(2);
-            const percent = Number.parseFloat((data.historicalData.low - data.todaysData.latestPrice) / data.historicalData.low * 100).toFixed(2);
-            setStock({
-                positive: false,
-                priceChange: price,
-                percentChange: percent
-                
-            })
-            setLoading(false)
+      const sortArr = (arr) => {
+          function compare(a,b) {
+              if (((a.data.todaysData.latestPrice - a.data.historicalData.low) / a.data.historicalData.low *100) > ((b.data.todaysData.latestPrice - b.data.historicalData.low) / b.data.historicalData.low *100)) {
+                  return -1;
+              } 
+              if (((a.data.todaysData.latestPrice - a.data.historicalData.low) / a.data.historicalData.low *100) < ((b.data.todaysData.latestPrice - b.data.historicalData.low) / b.data.historicalData.low *100)) {
+                return 1;
+              }
+              return 0;
           }
+          setStock(arr.sort(compare))
+          setLoading(false)
       }
 
-      const displayStock = () => {
-          if(stock.positive) {
+      const displayStock = (s) => {
+          const percentChange = Number.parseFloat((s.data.todaysData.latestPrice - s.data.historicalData.low) / s.data.historicalData.low * 100).toFixed(2);
+          const priceChange = Number.parseFloat(s.data.todaysData.latestPrice - s.data.historicalData.low).toFixed(2);
+          if(s.data.todaysData.latestPrice > s.data.historicalData.low) {
             //   Positive
               return(
-                <div className={classes.container}>
-                    <a key={key} className={classes.link} href={url} target='_blank' rel="noopener noreferrer"><li>{name}</li></a>
+                <div className={classes.container} key={s.stock.key}>
+                    <a className={classes.link} href={s.stock.url} target='_blank' rel="noopener noreferrer"><li>{s.stock.name}</li></a>
                     <ArrowDropUpIcon viewBox="-5 -5 24 24" className={classes.positiveIcon}/>
-                    <p className={classes.positiveText}>+${stock.priceChange}</p>                   
-                    <p className={classes.positiveText}>({stock.percentChange}%)</p>                   
+                    <p className={classes.positiveText}>+${priceChange}</p>                   
+                    <p className={classes.positiveText}>({percentChange}%)</p>                   
                 </div>
               )
           } else {
             //   Negative
               return(
-                <div>
-                    <a key={key} className={classes.link} href={url} target='_blank' rel="noopener noreferrer"><li>{name}</li></a>
+                <div key={s.stock.key}>
+                    <a className={classes.link} href={url} target='_blank' rel="noopener noreferrer"><li>{name}</li></a>
                     <ArrowDropDownIcon className={classes.negtiveIcon}/>
-                    <p className={classes.negativeText}>-${stock.priceChange}</p>                   
-                    <p className={classes.negativeText}>(-{stock.percentChange}%)</p>                     
+                    <p className={classes.negativeText}>${priceChange}</p>                   
+                    <p className={classes.negativeText}>(-{percentChange}%)</p>                     
                 </div>
               )
           }
@@ -127,7 +128,9 @@ function Stock(props) {
       } else {
         return(
             <div>
-                {displayStock()}
+                {stock.map(s => {
+                    return displayStock(s)
+                })}
             </div>
         )
       }

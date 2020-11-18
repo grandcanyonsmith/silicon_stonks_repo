@@ -7,15 +7,6 @@ import { withRouter } from 'react-router-dom';
 import BackgroundVideo from '../background-video/BackgroundVideo';
 import Stock from './stock';
 
-const STONKS = [
-    {key: 1, name: "Pinterest", url: 'https://finance.yahoo.com/quote/PINS/', ticker: 'PINS', date: '20201102'},
-    {key: 2, name: "Docusign", url: 'https://finance.yahoo.com/quote/DOCU/', ticker: 'DOCU', date: '20201102'},
-    {key: 3, name: "Hubspot", url: 'https://finance.yahoo.com/quote/HUBS/', ticker: 'HUBS', date: '20201102'},
-    {key: 4, name: "Amazon", url: 'https://finance.yahoo.com/quote/AMZN/', ticker: 'AMZN', date: '20201102'},
-    {key: 5, name: "Fiverr", url: 'https://finance.yahoo.com/quote/FVRR/', ticker: 'FVRR', date: '20201102'},
-    {key: 6, name: "Qorvo", url: 'https://finance.yahoo.com/quote/QRVO/', ticker: 'QRVO', date: '20201102'}
-]
-
 function Landing() { 
 
     if (!isLoggedIn()) {
@@ -37,13 +28,7 @@ function Landing() {
             <div className="percent-change-column-2">% change since<br></br>
             Nov. 1st recommendation</div>
           </div>
-              {STONKS.map(stonk => {
-                  return (
-                    <div key={stonk.key}>
-                      <Stock url={stonk.url} name={stonk.name} ticker={stonk.ticker} date={stonk.date}/>
-                    </div>
-                  )
-              })}
+          <Stock />
           </ul>
         </div>
         </div>
