@@ -40,7 +40,15 @@ function Signuppage(props) {
 
   const handleSave = e => {
     const {dispatch} = props;
-    dispatch(createUser(user))
+    const formattedUser = {
+      first: user.first,
+      last: user.last,
+      email: user.email.toLowerCase(),
+      phone: user.phone,
+      password: user.password,
+      password2: user.password2
+    }
+    dispatch(createUser(formattedUser))
     e.preventDefault()
   }
 
@@ -56,6 +64,7 @@ function Signuppage(props) {
             className={classes.field} 
             id="standard-required" 
             label="First Name" 
+            autoComplete="given-name"
             required
             defaultValue="" 
             onChange={handleChange('first')}
@@ -64,6 +73,7 @@ function Signuppage(props) {
             className={classes.field} 
             id="standard-required" 
             label="Last Name" 
+            autoComplete="family-name"
             required
             defaultValue="" 
             onChange={handleChange('last')}
@@ -73,6 +83,7 @@ function Signuppage(props) {
             id="standard-required" 
             label="Email" 
             required
+            autoCapitalize="none"
             defaultValue="" 
             onChange={handleChange('email')}
           />
@@ -80,6 +91,7 @@ function Signuppage(props) {
             className={classes.field} 
             id="standard-required" 
             label="Phone" 
+            autoComplete="phone"
             required
             defaultValue="" 
             onChange={handleChange('phone')}
@@ -89,6 +101,7 @@ function Signuppage(props) {
             id="standard-required" 
             label="Password" 
             type="password"
+            autoComplete="none"
             defaultValue=""
             onChange={handleChange('password')}
           />
@@ -97,6 +110,7 @@ function Signuppage(props) {
             id="standard-required" 
             label="Confirm Password" 
             type="password"
+            autoComplete="none"
             defaultValue="" 
             onChange={handleChange('password2')}
           />

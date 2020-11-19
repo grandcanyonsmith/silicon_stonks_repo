@@ -1,18 +1,24 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Link, withRouter} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     header: {
-        color: 'black'
+        color: 'white'
     },
     container: {
-        
+        textAlign: 'center'
     },
     profile: {
-        backgroundColor: 'white',
-        margin: ' 200px',
-        padding: '100px'
+        margin: '150px auto'
+    },
+    button: {
+        backgroundColor: '#3CEC97',
+        marginTop: '60px'
+    },
+    link: {
+        textDecoration: 'none'
     }
   }));
 
@@ -25,7 +31,9 @@ function Thanks(props) {
                 <h1 className={classes.header}>
                     Thank you for subscribing.
                 </h1>
-                <Link to='/profile'><button>Profile</button></Link>
+                <Link className={classes.link} to='/profile'>
+                    <Button className={classes.button}>Profile</Button>
+                </Link>
             </div>
         </div>
     )
