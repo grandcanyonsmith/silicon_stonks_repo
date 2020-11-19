@@ -23,11 +23,6 @@ function Landing() {
             </div>
           </div>
           <ul className='landing__stock-list'>
-          <div className="percent-change-title">
-            <div className="percent-change-column-1"></div>
-            <div className="percent-change-column-2">% change since<br></br>
-            Nov. 1st recommendation</div>
-          </div>
           <Stock />
           </ul>
         </div>
