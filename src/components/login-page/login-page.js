@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 function LoginPage(props) { 
   const [user, setUser] = useState({
-    email: "",
+    email: "".toLowerCase(),
     password: ""
   });
   const classes = useStyles();
@@ -36,7 +36,8 @@ function LoginPage(props) {
 
   const handleSave = e => {
     const {dispatch} = props;
-    dispatch(signIn(user))
+    const formattedUser = { email: user.email.toLowerCase(), password: user.password}
+    dispatch(signIn(formattedUser))
     e.preventDefault()
   }
 
@@ -64,6 +65,7 @@ function LoginPage(props) {
             label="Email" 
             required
             defaultValue="" 
+            autoCapitalize="none"
             onChange={handleChange('email')}
           />
           <TextField 

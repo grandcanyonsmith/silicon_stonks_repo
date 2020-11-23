@@ -44,7 +44,9 @@ function ForgotPassword(props) {
 
     const handleSave = e => {
         const {dispatch} = props;
-        axios.post('/api/users/forgotpassword', email)
+        const lowercaseEmail = email.email.toLowerCase()
+        console.log(lowercaseEmail)
+        axios.post('/api/users/forgotpassword', lowercaseEmail)
         .then(res => {
             setDone(true)
         })
@@ -65,7 +67,7 @@ function ForgotPassword(props) {
             <div className={classes.root}>
                 <form noValidate autoComplete="off">
                     <div className={classes.field}>
-                        <TextField fullWidth id="standard-basic" label="Enter email" onChange={handleChange("email")}/>
+                        <TextField fullWidth id="standard-basic" label="Enter email" autoCapitalize="none" onChange={handleChange("email")}/>
                         <Button onClick={handleSave} className={classes.button}>Submit</Button>
                     </div>
                 </form>

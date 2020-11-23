@@ -37,9 +37,7 @@ function NavBar(props) {
   
     return (
       <div className={classes.root}>
-        <Link className={classes.link} to='/'>
-          <Button className="button" variant="contained">Home</Button>
-        </Link>
+          <Button href='/' className="button" variant="contained">Home</Button>
         {/* <Link className={classes.link} to='/profile'>
           <Button className="button" variant="contained">Profile</Button>
         </Link> */}

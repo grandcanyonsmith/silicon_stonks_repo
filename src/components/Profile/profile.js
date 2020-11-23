@@ -16,18 +16,17 @@ const useStyles = makeStyles((theme) => ({
         },
       },
     header: {
-        color: 'black'
+        color: 'white'
     },
     container: {
-        
+        textAlign: 'center'
     },
     profile: {
-        backgroundColor: 'white',
-        margin: ' 200px',
-        padding: '100px'
+        margin: '150px auto'
     },
     button: {
-        backgroundColor: '#3CEC97'
+        backgroundColor: '#3CEC97',
+        marginTop: '60px'
     }
   }));
 
