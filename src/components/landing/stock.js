@@ -45,12 +45,12 @@ const useStyles = makeStyles((theme) => ({
   }));
 
   const STONKS = [
-    {key: 1, name: "Autodesk", url: 'https://finance.yahoo.com/quote/ADSK/', ticker: 'ADSK', date: '20201130'},
-    {key: 2, name: "Appian", url: 'https://finance.yahoo.com/quote/APPN/', ticker: 'APPN', date: '20201130'},
-    {key: 3, name: "Fiverr", url: 'https://finance.yahoo.com/quote/FVRR/', ticker: 'FVRR', date: '20201130'},
-    {key: 4, name: "Datadog", url: 'https://finance.yahoo.com/quote/DDOG/', ticker: 'DDOG', date: '20201130'},
-    {key: 5, name: "Equinix", url: 'https://finance.yahoo.com/quote/EQIX/', ticker: 'EQIX', date: '20201130'},
-    {key: 6, name: "Etsy", url: 'https://finance.yahoo.com/quote/ETSY/', ticker: 'ETSY', date: '20201130'}
+    {key: 1, name: "Autodesk", url: 'https://finance.yahoo.com/quote/ADSK/', ticker: 'ADSK', date: '20201101'},
+    {key: 2, name: "Appian", url: 'https://finance.yahoo.com/quote/APPN/', ticker: 'APPN', date: '20201201'},
+    {key: 3, name: "Fiverr", url: 'https://finance.yahoo.com/quote/FVRR/', ticker: 'FVRR', date: '20201201'},
+    {key: 4, name: "Datadog", url: 'https://finance.yahoo.com/quote/DDOG/', ticker: 'DDOG', date: '20201201'},
+    {key: 5, name: "Equinix", url: 'https://finance.yahoo.com/quote/EQIX/', ticker: 'EQIX', date: '20201201'},
+    {key: 6, name: "Etsy", url: 'https://finance.yahoo.com/quote/ETSY/', ticker: 'ETSY', date: '20201201'}
 ]
 
 const updatedStock = []
