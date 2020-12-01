@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     {key: 3, name: "Fiverr", url: 'https://finance.yahoo.com/quote/FVRR/', ticker: 'FVRR', date: '20201130'},
     {key: 4, name: "Datadog", url: 'https://finance.yahoo.com/quote/DDOG/', ticker: 'DDOG', date: '20201130'},
     {key: 5, name: "Equinix", url: 'https://finance.yahoo.com/quote/EQIX/', ticker: 'EQIX', date: '20201130'},
-    {key: 6, name: "Etsy", url: 'https://finance.yahoo.com/quote/ETSY/', ticker: 'ETSY', date: '20201130'}
+    // {key: 6, name: "Etsy", url: 'https://finance.yahoo.com/quote/ETSY/', ticker: 'ETSY', date: '20201130'}
 ]
 
 const updatedStock = []
