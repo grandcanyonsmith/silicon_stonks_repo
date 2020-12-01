@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
   const STONKS = [
     {key: 1, name: "Autodesk", url: 'https://finance.yahoo.com/quote/ADSK/', ticker: 'ADSK', date: '20201130'},
-    // {key: 2, name: "Appian", url: 'https://finance.yahoo.com/quote/APPN/', ticker: 'APPN', date: '20201130'},
+    {key: 2, name: "Appian", url: 'https://finance.yahoo.com/quote/APPN/', ticker: 'APPN', date: '20201130'},
     {key: 3, name: "Fiverr", url: 'https://finance.yahoo.com/quote/FVRR/', ticker: 'FVRR', date: '20201130'},
     {key: 4, name: "Datadog", url: 'https://finance.yahoo.com/quote/DDOG/', ticker: 'DDOG', date: '20201130'},
     {key: 5, name: "Equinix", url: 'https://finance.yahoo.com/quote/EQIX/', ticker: 'EQIX', date: '20201130'},
@@ -109,11 +109,11 @@ function Stock(props) {
           } else {
             //   Negative
               return(
-                <div key={s.stock.key}>
-                    <a className={classes.link} href={url} target='_blank' rel="noopener noreferrer"><li>{name}</li></a>
-                    <ArrowDropDownIcon className={classes.negtiveIcon}/>
+                <div className={classes.container} key={s.stock.key}>
+                    <a className={classes.link} href={url} target='_blank' rel="noopener noreferrer"><li>{s.stock.name}</li></a>
+                    <ArrowDropDownIcon viewBox="-5 -5 24 24" className={classes.negativeIcon}/>
                     <p className={classes.negativeText}>${priceChange}</p>                   
-                    <p className={classes.negativeText}>(-{percentChange}%)</p>                     
+                    <p className={classes.negativeText}>({percentChange}%)</p>                     
                 </div>
               )
           }
@@ -131,7 +131,7 @@ function Stock(props) {
                 <div className="percent-change-title">
                     <div className="percent-change-column-1"></div>
                     <div className="percent-change-column-2">% change since<br></br>
-                    Nov. 1st recommendation</div>
+                    Dec. 1st recommendation</div>
                 </div>
                 {stock.map(s => {
                     return displayStock(s)
