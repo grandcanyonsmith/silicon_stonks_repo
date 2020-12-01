@@ -4,6 +4,8 @@ const path = require('path');
 const passport = require('passport');
 const routes = require('./routes');
 const PORT = process.env.PORT || 5000;
+const cron = require('node-cron');
+const stocks = require('./jobs/stocks');
 require('./models/user')
 
 require('dotenv').config();
@@ -26,6 +28,11 @@ app.use(passport.initialize());
 // Instead of using body-parser middleware, use the new Express implementation of the same thing
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+// Cron jobs
+// cron.schedule('0 12 * * *', function() {
+//   stocks.update()
+// });
 
 // Allows our React application to make HTTP requests to Express application
 app.use(cors());

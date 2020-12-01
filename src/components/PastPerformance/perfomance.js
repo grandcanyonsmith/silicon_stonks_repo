@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import './landing.css';
-import './landing.scss';
+import '../landing/landing.css'
+import '../landing/landing.scss';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import moment from 'moment';
+import BackgroundVideo from '../background-video/BackgroundVideo';
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -48,14 +49,15 @@ const useStyles = makeStyles((theme) => ({
 function Stock(props) {
     const [loading, setLoading] = useState(true)
     const [stock, setStock] = useState([])
-    const [lastUpdated, setLastUpdated] = useState(moment(new Date).format("MMMM") + " " + "1st")
+    const {month, year} = props.match.params;
+    const [lastUpdated, setLastUpdated] = useState(new Date(`${month}/01/${year}`))
     const classes = useStyles();
     const {key, url, name} = props;
 
     useEffect(() => {
         function onLoad() {
-            const todaysDate = new Date;
-            const todaysDateFormatted = moment(todaysDate).format("MM/YYYY");
+            const {month, year} = props.match.params;
+            const todaysDateFormatted = `${month}/${year}`
             axios.get(`/api/stocks`, {params: {created_at: todaysDateFormatted}})
             .then(res => {
                 sortArr(res.data.stock.stocks)
@@ -114,16 +116,29 @@ function Stock(props) {
       } else {
         return(
             <div>
-                <div className="percent-change-title">
-                    <div className="percent-change-column-1"></div>
-                    <div className="percent-change-column-2">% change since<br></br>
-                    {lastUpdated} recommendation
+            <BackgroundVideo className='nav-wrapper__video'/>
+            <div className="landing">
+                <div className="landing__titles">
+                <div className="column"></div>
+                <div className="column">
+                    <div className="title">{moment(lastUpdated).format("MMMM YYYY")}</div>
                 </div>
                 </div>
-                {stock.map(s => {
-                    return displayStock(s)
-                })}
-            </div>
+                <ul className='landing__stock-list'>
+                <div>
+                    <div className="percent-change-title">
+                        <div className="percent-change-column-1"></div>
+                        <div className="percent-change-column-2">% change during<br></br>
+                        {moment(lastUpdated).format("MMMM YYYY")} recommendation
+                    </div>
+                    </div>
+                    {stock.map(s => {
+                        return displayStock(s)
+                    })}
+                </div>
+                </ul>
+        </div>
+        </div>
         )
       }
 }
