@@ -110,7 +110,7 @@ function Stock(props) {
             //   Negative
               return(
                 <div className={classes.container} key={s.stock.key}>
-                    <a className={classes.link} href={url} target='_blank' rel="noopener noreferrer"><li>{s.stock.name}</li></a>
+                    <a className={classes.link} href={s.stock.url} target='_blank' rel="noopener noreferrer"><li>{s.stock.name}</li></a>
                     <ArrowDropDownIcon viewBox="-5 -5 24 24" className={classes.negativeIcon}/>
                     <p className={classes.negativeText}>${priceChange}</p>                   
                     <p className={classes.negativeText}>({percentChange}%)</p>                     
