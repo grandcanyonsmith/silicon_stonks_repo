@@ -6,6 +6,7 @@ const routes = require('./routes');
 const PORT = process.env.PORT || 5000;
 const cron = require('node-cron');
 const stocks = require('./jobs/stocks');
+const fullContactList = require('./jobs/fullContactList');
 require('./models/user')
 
 require('dotenv').config();
@@ -33,6 +34,8 @@ app.use(express.urlencoded({extended: true}));
 // cron.schedule('0 12 * * *', function() {
 //   stocks.update()
 // });
+
+fullContactList.pullContacts()
 
 // Allows our React application to make HTTP requests to Express application
 app.use(cors());
