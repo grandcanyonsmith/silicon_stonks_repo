@@ -3,6 +3,8 @@ const cors = require('cors');
 const path = require('path');
 const passport = require('passport');
 const routes = require('./routes');
+const cronTest = require('./jobs/test');
+var CronJob = require('cron').CronJob;
 const PORT = process.env.PORT || 5000;
 require('./models/user')
 
@@ -16,6 +18,11 @@ require('./config/database');
 
 // Must first load the models
 require('./models/user');
+
+// CronJobs
+var job = new CronJob('00 * * * * *', function() {
+  cronTest.test()
+}, null, true, 'America/Denver');
 
 // Pass the global passport object into the configuration function
 require('./config/passport')(passport);
