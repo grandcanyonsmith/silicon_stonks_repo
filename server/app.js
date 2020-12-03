@@ -23,6 +23,7 @@ require('./models/user');
 var job = new CronJob('00 * * * * *', function() {
   cronTest.test()
 }, null, true, 'America/Denver');
+job.start()
 
 // Pass the global passport object into the configuration function
 require('./config/passport')(passport);
