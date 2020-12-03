@@ -97,9 +97,9 @@ function Stock(props) {
               return(
                 <div className={classes.container} key={s.name}>
                     <a className={classes.link} href="#" target='_blank' rel="noopener noreferrer"><li>{s.name}</li></a>
-                    <ArrowDropDownIcon className={classes.negtiveIcon}/>
+                    <ArrowDropDownIcon viewBox="-5 -5 24 24" className={classes.negativeIcon}/>
                     <p className={classes.negativeText}>${s.priceChange}</p>                   
-                    <p className={classes.negativeText}>(-{s.percentChange}%)</p>                     
+                    <p className={classes.negativeText}>({s.percentChange}%)</p>                     
                 </div>
               )
           }

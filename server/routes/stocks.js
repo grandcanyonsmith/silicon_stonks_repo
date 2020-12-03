@@ -27,7 +27,7 @@ router.get('/', (request, response, next) => {
 })
 
 router.get('/all', (request, response, next) => {
-  Stock.find({}, function(err, stocks) {
+  Stock.find({}, null, {sort: {timeStamp: -1}}, function(err, stocks) {
     if (err) next(err)
 
     response.json(stocks)

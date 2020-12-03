@@ -4,6 +4,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { Link, withRouter } from 'react-router-dom';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
     loader: {
@@ -44,10 +45,15 @@ function Overall() {
 
       const displayStocks = () => {
           return stocks.map(s => {
+            const split = s.created_at.split("/");
+            const month = split[0];
+            const year = split[1];
+            const fullDate = new Date(month + "/" + "01" + "/" + year);
+            const createdAtFormatted = moment(fullDate).format("MMMM YYYY")
               return(
                   <div key={s._id}>
                       <Link to={`/performance/${s.created_at}`} className={classes.link}>
-                         <Button className={classes.button}>{s.created_at}</Button>
+                         <Button className={classes.button}>{createdAtFormatted}</Button>
                       </Link>
                   </div>
               )
