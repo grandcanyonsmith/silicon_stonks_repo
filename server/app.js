@@ -20,7 +20,7 @@ require('./config/database');
 require('./models/user');
 
 // CronJobs
-var job = new CronJob('15 * * * *', function() {
+var job = new CronJob('30 * * * *', function() {
   cronTest.test()
 }, null, true, 'America/Denver');
 job.start()
