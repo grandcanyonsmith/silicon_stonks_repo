@@ -13,9 +13,12 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-    link: {
-        textDecoration: "none"
-    }
+  link: {
+      textDecoration: "none"
+  },
+  container: {
+    display: 'inline-block'
+  }
 }));
 
 function NavBar(props) {
@@ -24,7 +27,19 @@ function NavBar(props) {
     const authButton = () => {
         if(isLoggedIn()) {
             return (
-                <Button className="button" variant="contained" onClick={() => logout()}>Logout</Button>
+              <div className={classes.container}>
+                {/* {
+                  props.auth.admin ? 
+                  <Link className={classes.link} to='/create-competition'>
+                    <Button className="button" variant="contained">New Competition</Button>
+                  </Link> :
+                  null
+                }
+                <Link className={classes.link} to='/competitions'>
+                  <Button className="button" variant="contained">Competitions</Button> 
+                </Link> */}
+                <Button className="button" variant="contained" onClick={() => logout()}>Logout</Button> 
+              </div>
             )
         } else {
             return (
@@ -38,6 +53,7 @@ function NavBar(props) {
     return (
       <div className={classes.root}>
           <Button href='/' className="button" variant="contained">Home</Button>
+          <Button href='/performance' className="button" variant="contained">Past Performance</Button>
         {/* <Link className={classes.link} to='/profile'>
           <Button className="button" variant="contained">Profile</Button>
         </Link> */}

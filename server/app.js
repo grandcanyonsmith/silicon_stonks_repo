@@ -6,6 +6,8 @@ const routes = require('./routes');
 const cronTest = require('./jobs/test');
 var CronJob = require('cron').CronJob;
 const PORT = process.env.PORT || 5000;
+var CronJob = require('cron').CronJob;
+const stocks = require('./jobs/stocks');
 require('./models/user')
 
 require('dotenv').config();
@@ -34,6 +36,12 @@ app.use(passport.initialize());
 // Instead of using body-parser middleware, use the new Express implementation of the same thing
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+// Cron jobs
+// var job = new CronJob('45 * * * *', function() {
+//   stocks.update()
+// }, null, true, 'America/Denver');
+// job.start();
 
 // Allows our React application to make HTTP requests to Express application
 app.use(cors());
