@@ -86,7 +86,7 @@ function Stock(props) {
             //   Positive
               return(
                 <div className={classes.container} key={s.name}>
-                    <a className={classes.link} href="#" target='_blank' rel="noopener noreferrer"><li>{s.name}</li></a>
+                    <a className={classes.link} href={s.url} target='_blank' rel="noopener noreferrer"><li>{s.name}</li></a>
                     <ArrowDropUpIcon viewBox="-5 -5 24 24" className={classes.positiveIcon}/>
                     <p className={classes.positiveText}>+${s.priceChange}</p>                   
                     <p className={classes.positiveText}>({s.percentChange}%)</p>                   
@@ -95,11 +95,11 @@ function Stock(props) {
           } else {
             //   Negative
               return(
-                <div className={classes.container} key={s.stock.key}>
-                    <a className={classes.link} href={s.stock.url} target='_blank' rel="noopener noreferrer"><li>{s.stock.name}</li></a>
+                <div className={classes.container} key={s.name}>
+                    <a className={classes.link} href={s.url} target='_blank' rel="noopener noreferrer"><li>{s.name}</li></a>
                     <ArrowDropDownIcon viewBox="-5 -5 24 24" className={classes.negativeIcon}/>
-                    <p className={classes.negativeText}>${priceChange}</p>                   
-                    <p className={classes.negativeText}>({percentChange}%)</p>                     
+                    <p className={classes.negativeText}>${s.priceChange}</p>                   
+                    <p className={classes.negativeText}>({s.percentChange}%)</p>                     
                 </div>
               )
           }

@@ -7,7 +7,8 @@ const StockSchema = new mongoose.Schema({
     timeStamp: {
         type: Date,
         default: new Date
-    }
+    },
+    url: String
 });
 
 mongoose.model('Stock', StockSchema);

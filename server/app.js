@@ -38,10 +38,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // Cron jobs
-// var job = new CronJob('45 * * * *', function() {
-//   stocks.update()
-// }, null, true, 'America/Denver');
-// job.start();
+var job = new CronJob('45 * * * *', function() {
+  stocks.update()
+}, null, true, 'America/Denver');
+job.start();
+
+stocks.update()
 
 // Allows our React application to make HTTP requests to Express application
 app.use(cors());

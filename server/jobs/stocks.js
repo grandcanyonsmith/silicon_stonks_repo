@@ -45,6 +45,7 @@ function math(data) {
             name: data[i].stock.name,
             ticker: data[i].stock.ticker,
             date: data[i].stock.date,
+            url: data[i].stock.url,
             percentChange,
             priceChange,
         };
