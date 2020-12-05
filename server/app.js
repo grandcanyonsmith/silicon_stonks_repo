@@ -4,7 +4,7 @@ const path = require('path');
 const passport = require('passport');
 const routes = require('./routes');
 const PORT = process.env.PORT || 5000;
-const cron = require('node-cron');
+var CronJob = require('cron').CronJob;
 const stocks = require('./jobs/stocks');
 require('./models/user')
 
@@ -30,9 +30,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // Cron jobs
-// cron.schedule('0 12 * * *', function() {
+// var job = new CronJob('45 * * * *', function() {
 //   stocks.update()
-// });
+// }, null, true, 'America/Denver');
+// job.start();
 
 // Allows our React application to make HTTP requests to Express application
 app.use(cors());
