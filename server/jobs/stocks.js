@@ -66,10 +66,12 @@ function sendToDb(arr) {
     },
     {"new": true, "upsert": true},
     function(err, res) {
+        const date = new Date;
+        const dateFormatted = moment(date).format('MMMM Do YYYY, h:mm:ss a');
         if(err) {
             console.log(err)
         }
-        console.log(res)
+        axios.post('https://hooks.zapier.com/hooks/catch/4616385/oek287d/', {status: "Stocks Updated", timeStamp: dateFormatted})
     })
 }
 
