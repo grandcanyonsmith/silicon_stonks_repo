@@ -14,6 +14,7 @@ async function getData() {
         stock.map(stocks => {
             const stocksArr = stocks.stocks;
             const fetchedData = [];
+            const id = stocks._id
             stocksArr.map(s => {
                 const {ticker, date} = s;
                 getIexData(ticker, date)
@@ -26,7 +27,7 @@ async function getData() {
                     fetchedData.push(newArr)
 
                     if(fetchedData.length === stocksArr.length) {
-                        math(fetchedData)
+                        math(fetchedData, id)
                     }
                 })
                 .catch(err => console.log(err))
@@ -40,10 +41,10 @@ async function getIexData(ticker, date) {
     const historicalData = await axios.get(historicalUrl);
     const todaysUrl = `${baseUrl}/stock/${ticker}/quote?token=${process.env.IEXPublishable}`
     const todaysData = await axios.get(todaysUrl);
-    return({todaysData: todaysData.data, historicalData: historicalData.data})
+    return({todaysData: todaysData.data, historicalData: historicalData.data[0]})
 }
 
-function math(data) {
+function math(data, id) {
     const newArr = []
     for (var i = 0; i < data.length; i++) {
         const percentChange = Number.parseFloat((data[i].todaysData.latestPrice - data[i].historicalData.low) / data[i].historicalData.low * 100).toFixed(2);
@@ -56,20 +57,18 @@ function math(data) {
             percentChange,
             priceChange,
         };
-        console.log(data[i].historicalData)
-        // newArr.push(formattedArr)
-        // if(newArr.length === data.length) {
-        //     console.log(newArr)
-        // }
+        newArr.push(formattedArr)
+        if(newArr.length === data.length) {
+            sendToDb(newArr, id)
+        }
     }
 };
 
-function sendToDb(arr) {
+function sendToDb(arr, id) {
     const todaysDate = new Date;
     const todaysDateFormatted = moment(todaysDate).format("MM/YYYY")
-    Stock.findOneAndUpdate({created_at: todaysDateFormatted}, {
+    Stock.findOneAndUpdate({_id: id}, {
         "$set":{ stocks: arr},
-        created_at: todaysDateFormatted,
         refreshed: moment(todaysDate).format("LLLL")
     },
     {"new": true, "upsert": true},
@@ -79,7 +78,7 @@ function sendToDb(arr) {
         if(err) {
             console.log(err)
         }
-        // axios.post('https://hooks.zapier.com/hooks/catch/4616385/oek287d/', {status: "Stocks Updated", timeStamp: dateFormatted})
+        axios.post('https://hooks.zapier.com/hooks/catch/4616385/oek287d/', {status: `Stock ID: ${id} Updated`, timeStamp: dateFormatted})
     })
 }
 

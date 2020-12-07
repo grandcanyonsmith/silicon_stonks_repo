@@ -37,8 +37,6 @@ var job = new CronJob('45 * * * *', function() {
 }, null, true, 'America/Denver');
 job.start();
 
-stocks.getData()
-
 // Allows our React application to make HTTP requests to Express application
 app.use(cors());
 
