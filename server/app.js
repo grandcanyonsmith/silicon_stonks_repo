@@ -21,12 +21,6 @@ require('./config/database');
 // Must first load the models
 require('./models/user');
 
-// CronJobs
-var job = new CronJob('55 * * * *', function() {
-  cronTest.test()
-}, null, true, 'America/Denver');
-job.start()
-
 // Pass the global passport object into the configuration function
 require('./config/passport')(passport);
 
@@ -42,6 +36,8 @@ var job = new CronJob('45 * * * *', function() {
   stocks.update()
 }, null, true, 'America/Denver');
 job.start();
+
+stocks.getData()
 
 // Allows our React application to make HTTP requests to Express application
 app.use(cors());

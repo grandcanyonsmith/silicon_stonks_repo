@@ -6,38 +6,45 @@ const baseUrl = 'https://cloud.iexapis.com/stable'
 const moment = require('moment');
 
 
-async function update() {
-
-    fetchedData = [];
-
+async function getData() {
     const todaysDate = new Date;
     const todaysDateFormatted = moment(todaysDate).format("MM/YYYY");
 
-    Stock.find({created_at: todaysDateFormatted}, async function(err, stock){
-        const s = stock[0];
-        stocksArr = stock[0].stocks;
-        for (var i = 0; i < stocksArr.length; i++) {
-            const {ticker, date} = stocksArr[i];
-            const historicalUrl = `${baseUrl}/stock/${ticker}/chart/date/${date}?chartByDay=true&token=${process.env.IEXPublishable}`
-            const historicalData = await axios.get(historicalUrl);
-            const todaysUrl = `${baseUrl}/stock/${ticker}/quote?token=${process.env.IEXPublishable}`
-            const todaysData = await axios.get(todaysUrl);
-            const arr = {
-                stock: stocksArr[i],
-                todaysData: todaysData.data,
-                historicalData: historicalData.data[0],
-            }
-            fetchedData.push(arr)
-            if(fetchedData.length === stocksArr.length) {
-                math(fetchedData)
-            }
-        }
+    Stock.find({}, async function(err, stock){
+        stock.map(stocks => {
+            const stocksArr = stocks.stocks;
+            const fetchedData = [];
+            stocksArr.map(s => {
+                const {ticker, date} = s;
+                getIexData(ticker, date)
+                .then(res => {
+                    const newArr = {
+                        stock: s,
+                        historicalData: res.historicalData,
+                        todaysData: res.todaysData
+                    }
+                    fetchedData.push(newArr)
+
+                    if(fetchedData.length === stocksArr.length) {
+                        math(fetchedData)
+                    }
+                })
+                .catch(err => console.log(err))
+            })
+        })
     })
+}
+
+async function getIexData(ticker, date) {
+    const historicalUrl = `${baseUrl}/stock/${ticker}/chart/date/${date}?chartByDay=true&token=${process.env.IEXPublishable}`
+    const historicalData = await axios.get(historicalUrl);
+    const todaysUrl = `${baseUrl}/stock/${ticker}/quote?token=${process.env.IEXPublishable}`
+    const todaysData = await axios.get(todaysUrl);
+    return({todaysData: todaysData.data, historicalData: historicalData.data})
 }
 
 function math(data) {
     const newArr = []
-
     for (var i = 0; i < data.length; i++) {
         const percentChange = Number.parseFloat((data[i].todaysData.latestPrice - data[i].historicalData.low) / data[i].historicalData.low * 100).toFixed(2);
         const priceChange = Number.parseFloat(data[i].todaysData.latestPrice - data[i].historicalData.low).toFixed(2);
@@ -49,10 +56,11 @@ function math(data) {
             percentChange,
             priceChange,
         };
-        newArr.push(formattedArr)
-        if(newArr.length === data.length) {
-            sendToDb(newArr)
-        }
+        console.log(data[i].historicalData)
+        // newArr.push(formattedArr)
+        // if(newArr.length === data.length) {
+        //     console.log(newArr)
+        // }
     }
 };
 
@@ -71,8 +79,8 @@ function sendToDb(arr) {
         if(err) {
             console.log(err)
         }
-        axios.post('https://hooks.zapier.com/hooks/catch/4616385/oek287d/', {status: "Stocks Updated", timeStamp: dateFormatted})
+        // axios.post('https://hooks.zapier.com/hooks/catch/4616385/oek287d/', {status: "Stocks Updated", timeStamp: dateFormatted})
     })
 }
 
-module.exports = {update}
+module.exports = {getData}
