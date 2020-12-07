@@ -128,7 +128,7 @@ function Stock(props) {
                 <div>
                     <div className="percent-change-title">
                         <div className="percent-change-column-1"></div>
-                        <div className="percent-change-column-2">% change during<br></br>
+                        <div className="percent-change-column-2">% change since<br></br>
                         {moment(lastUpdated).format("MMMM YYYY")} recommendation
                     </div>
                     </div>
