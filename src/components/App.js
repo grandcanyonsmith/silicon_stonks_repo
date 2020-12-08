@@ -14,12 +14,13 @@ import axios from 'axios';
 import JoinCompetition from "./Competition/joinCompetition";
 import Overall from "./PastPerformance/overall";
 import Performance from "./PastPerformance/perfomance";
+import AppBar from "./AppBar/appBar";
 
 function App() {
 
   return (
     <div id='appMain'>
-    <NavWrapper>
+    <AppBar>
     <Flash/>
     <Switch>
         <Route exact path='/' component={Landing} />
@@ -34,7 +35,7 @@ function App() {
         <Route exact path='/performance' component={Overall} />
         <Route exact path='/performance/:month/:year' component={Performance} />
     </Switch>
-    </NavWrapper>
+    </AppBar>
     </div>
   );
 }
