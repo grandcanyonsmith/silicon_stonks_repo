@@ -33,7 +33,7 @@ app.use(express.urlencoded({extended: true}));
 
 // Cron jobs
 var job = new CronJob('45 * * * *', function() {
-  stocks.update()
+  stocks.getData()
 }, null, true, 'America/Denver');
 job.start();
 
