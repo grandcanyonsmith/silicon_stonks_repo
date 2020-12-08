@@ -46,7 +46,7 @@ function ForgotPassword(props) {
         const {dispatch} = props;
         const lowercaseEmail = email.email.toLowerCase()
         console.log(lowercaseEmail)
-        axios.post('/api/users/forgotpassword', lowercaseEmail)
+        axios.post('/api/users/forgotpassword', {email: lowercaseEmail})
         .then(res => {
             setDone(true)
         })
