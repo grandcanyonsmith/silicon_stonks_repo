@@ -125,7 +125,7 @@ function SingleStock(props) {
                         <TextField defaultValue={s.date} className={classes.textField} id="standard-basic" label="Date" onChange={event => obj.date = event.target.value} />
                     </TableCell>
                     <TableCell align="right">
-                        <TextField defaultValue={s.description} className={classes.textField} id="standard-basic" label="Description" onChange={event => obj.description = event.target.value} />
+                        <TextField defaultValue={s.description} className={classes.textField} id="standard-basic" label="Description" multiline onChange={event => obj.description = event.target.value} />
                     </TableCell>
                     <TableCell align="right"><Button className={classes.editButton} onClick={() => saveEdit(obj, index)}>Save</Button></TableCell>
                     <TableCell align="right"><Button className={classes.deleteButton} onClick={() => deleteStock(index)}>Delete</Button></TableCell>
