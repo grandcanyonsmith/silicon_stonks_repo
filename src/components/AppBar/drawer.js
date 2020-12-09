@@ -12,6 +12,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import HistoryIcon from '@material-ui/icons/History';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Typography from '@material-ui/core/Typography';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 import { Link, withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
@@ -24,6 +26,10 @@ const useStyles = makeStyles({
   link: {
       textDecoration: 'none',
       color: 'black'
+  },
+  title: {
+    margin: '25px auto',
+    textAlign: 'center'
   }
 });
 
@@ -67,6 +73,30 @@ function TemporaryDrawer(props) {
     </div>
   );
 
+  const adminList = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+      })}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+    <Divider />
+    <Typography variant="h6" className={classes.title}>
+      Admin
+    </Typography>
+    <Link className={classes.link} to='/all-stocks'>
+        <List>
+            <ListItem button>
+            <ListItemIcon><ShowChartIcon /></ListItemIcon>
+            <ListItemText primary="Stocks" />
+            </ListItem>
+        </List>
+    </Link>
+    </div>
+  );
+
   return (
     <div>
         <React.Fragment>
@@ -75,6 +105,7 @@ function TemporaryDrawer(props) {
           </IconButton>
           <Drawer anchor={'left'} open={open} onClose={toggleDrawer(false)}>
             {list('left')}
+            {props.user.admin === true ? adminList('left') : null}
           </Drawer>
         </React.Fragment>
     </div>
