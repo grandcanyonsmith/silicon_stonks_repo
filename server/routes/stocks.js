@@ -4,6 +4,7 @@ const axios = require('axios');
 const baseUrl = 'https://cloud.iexapis.com/stable'
 const mongoose = require('mongoose');
 const Stock = mongoose.model('Stock');
+const stocks = require('../jobs/stocks');
 
 router.get('/:ticker/:date', async (request, response, next) => {
   const {ticker, date} = request.params;
@@ -31,6 +32,29 @@ router.get('/all', (request, response, next) => {
     if (err) next(err)
 
     response.json(stocks)
+  })
+})
+
+router.get('/single', (req, res, next) => {
+  const {id} = req.query;
+  Stock.find({_id: id}, function(err, stock) {
+    if (err) next(err);
+
+    res.json(stock[0])
+  })
+})
+
+router.post('/new-stock', (req, res, next) => {
+  const {id, newArr} = req.body;
+  Stock.findByIdAndUpdate({_id: id}, {
+    "$set":{stocks: newArr}
+  },
+  {"new": true, "upsert": true},
+  function(err, stock) {
+    if(err) return next(err)
+
+    stocks.getData()
+    res.json(stock)
   })
 })
 

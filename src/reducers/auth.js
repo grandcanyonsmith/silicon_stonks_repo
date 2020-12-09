@@ -3,7 +3,7 @@ const auth = (state = {}, action) => {
       case 'LOGIN':
         return action.user
       case 'LOGOUT':
-        return { isAuthenticated: false }
+        return { }
       default:
         return state;
     }

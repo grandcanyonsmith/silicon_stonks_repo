@@ -15,6 +15,8 @@ import JoinCompetition from "./Competition/joinCompetition";
 import Overall from "./PastPerformance/overall";
 import Performance from "./PastPerformance/perfomance";
 import AppBar from "./AppBar/appBar";
+import AllStocks from "./AdminStocks/allStocks";
+import SingleStock from "./AdminStocks/singleStock";
 
 function App() {
 
@@ -34,6 +36,8 @@ function App() {
         <Route exact path='/competitions' component={JoinCompetition} />
         <Route exact path='/performance' component={Overall} />
         <Route exact path='/performance/:month/:year' component={Performance} />
+        <Route exact path='/all-stocks' component={AllStocks} />
+        <Route exact path='/all-stocks/:id' component={SingleStock} />
     </Switch>
     </AppBar>
     </div>

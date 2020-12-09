@@ -54,7 +54,7 @@ function AppBarContainer(props){
         <div className={classes.root}>
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
-            <DrawerContainer user={props.user}/>
+            <DrawerContainer user={props.auth}/>
             <Typography variant="h6" className={classes.title}>
             </Typography>
             {authButton()}

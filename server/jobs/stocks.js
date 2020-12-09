@@ -54,6 +54,7 @@ function math(data, id) {
             ticker: data[i].stock.ticker,
             date: data[i].stock.date,
             url: data[i].stock.url,
+            description: data[i].stock.description,
             percentChange,
             priceChange,
         };
