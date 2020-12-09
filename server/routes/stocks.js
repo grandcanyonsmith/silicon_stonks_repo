@@ -58,6 +58,19 @@ router.post('/new-stock', (req, res, next) => {
   })
 })
 
+router.post('/new', (request, response, next) => {
+  const {date} = request.body;
+  const newStock = new Stock({
+    created_at: date,
+    stocks: []
+  })
+  newStock.save()
+    .then(res => {
+      response.json({id: res._id})
+    })
+    .catch(err => next(err))
+})
+
 router.post
 
 module.exports = router;
