@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   }
 });
 
-function TemporaryDrawer() {
+function TemporaryDrawer(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false)
 
