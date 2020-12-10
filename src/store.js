@@ -1,20 +1,23 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import apiMiddleware from 'redux-devise-axios';
 import rootReducer from './reducers/index';
+import axios from 'axios';
+
+const options = { axios };
 
 const enhancers = compose(
-  applyMiddleware(thunk),
-  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+  applyMiddleware(thunk, apiMiddleware(options)),
+  // window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
+);
 
-const persistConfig = {
-  key: 'root',
-  storage,
+const store = createStore(rootReducer, {}, enhancers);
+
+if (module.hot) {
+  module.hot.accept('./reducers/', () => {
+    const nextRootReducer = require('./reducers/index').default;
+    store.replaceReducer(nextRootReducer);
+  });
 }
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
-
-export const store = createStore(persistedReducer, enhancers)
-export const persistor = persistStore(store)
+export default store;

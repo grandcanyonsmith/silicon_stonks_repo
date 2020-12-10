@@ -4,14 +4,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
-import {isLoggedIn, logout} from '../../auth';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import DrawerContainer from './drawer';
 import '../nav-wrapper/nav-wrapper.css';
-import BackgroundVideo from '../background-video/BackgroundVideo';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,11 +30,16 @@ const useStyles = makeStyles((theme) => ({
 function AppBarContainer(props){
     const classes = useStyles();
 
+    const handleLogout = () => {
+      localStorage.removeItem('token')
+      window.location.replace('/login')
+    }
+
     const authButton = () => {
-        if(isLoggedIn()) {
+        if(props.user) {
             return (
               <div className={classes.container}>
-                <Button className="button" variant="contained" onClick={() => logout()}>Logout</Button> 
+                <Button className="button" variant="contained" onClick={() => handleLogout()}>Logout</Button> 
               </div>
             )
         } else {
@@ -54,7 +55,7 @@ function AppBarContainer(props){
         <div className={classes.root}>
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
-            <DrawerContainer user={props.auth}/>
+            <DrawerContainer user={props.user}/>
             <Typography variant="h6" className={classes.title}>
             </Typography>
             {authButton()}
@@ -66,7 +67,7 @@ function AppBarContainer(props){
 }
 
 const mapStateToProps = (state) => {
-    return { auth: state.auth}
+    return { user: state.user}
 }
 
 export default withRouter(connect(mapStateToProps)(AppBarContainer));

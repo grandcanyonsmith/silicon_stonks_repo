@@ -127,6 +127,10 @@ router.post('/changepassword', passport.authenticate('jwt', {session: false}), (
         }
      });
      
+});
+
+router.get('/validate-token', passport.authenticate('jwt', {session: false}), (request, response, next) => {
+    response.json({user: request.user})
 })
 
 module.exports = router;

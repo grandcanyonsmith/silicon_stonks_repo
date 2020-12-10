@@ -29,7 +29,6 @@ export const createUser = user => {
           console.log(res.data)
             const expires = moment().add(res.data.expiresIn, 'days')
             localStorage.setItem('token', res.data.token)
-            localStorage.setItem('expires', JSON.stringify(expires.valueOf()))
             dispatch({type: 'LOGIN', user: res.data.user})
             dispatch({type: 'SETFLASH', flash: {msg: "Successfully Logged In", severity: 'success'}})
             window.location.replace("/")
@@ -44,3 +43,17 @@ export const createUser = user => {
         })
     }
   };
+
+  export const validateToken = (callback) => {
+    return (dispatch) => {
+      const token = localStorage.getItem('token');
+      axios.get('/api/users/validate-token', {headers: {'Authorization': token}})
+      .then(res => {
+        dispatch({type: 'LOGIN', user: res.data.user})
+        callback()
+      })
+      .catch(err => {
+        callback()
+      })
+    }
+  }

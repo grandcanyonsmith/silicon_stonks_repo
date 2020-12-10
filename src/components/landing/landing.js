@@ -1,7 +1,6 @@
 import React from 'react';
 import './landing.css';
 import './landing.scss';
-import { isLoggedIn } from '../../auth';
 import {Redirect} from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import BackgroundVideo from '../background-video/BackgroundVideo';
@@ -9,9 +8,6 @@ import Stock from './stock';
 
 function Landing() { 
 
-    if (!isLoggedIn()) {
-      return <Redirect to='/login'/>
-    } else {
       return (
         <div>
         <BackgroundVideo className='nav-wrapper__video'/>
@@ -29,7 +25,5 @@ function Landing() {
         </div>
       )
     }
-  }
-
 
 export default withRouter(Landing);

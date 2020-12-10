@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import {isLoggedIn, logout} from '../../auth';
 import '../nav-wrapper/navbar.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +24,7 @@ function NavBar(props) {
     const classes = useStyles();
 
     const authButton = () => {
-        if(isLoggedIn()) {
+        if(props.auth.id) {
             return (
               <div className={classes.container}>
                 {/* {
@@ -38,7 +37,7 @@ function NavBar(props) {
                 <Link className={classes.link} to='/competitions'>
                   <Button className="button" variant="contained">Competitions</Button> 
                 </Link> */}
-                <Button className="button" variant="contained" onClick={() => logout()}>Logout</Button> 
+                <Button className="button" variant="contained" >Logout</Button> 
               </div>
             )
         } else {
