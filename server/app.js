@@ -1,4 +1,5 @@
 const express = require('express');
+var enforce = require('express-sslify');
 const cors = require('cors');
 const path = require('path');
 const passport = require('passport');
@@ -14,6 +15,7 @@ require('dotenv').config();
 
 // Create the Express application
 var app = express();
+app.use(enforce.HTTPS({ trustProtoHeader: true }))
 
 // Configures the database and opens a global connection that can be used in any module with `mongoose.connection`
 require('./config/database');
