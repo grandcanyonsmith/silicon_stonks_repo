@@ -7,6 +7,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import moment from 'moment';
+import Description from './description';
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -25,8 +26,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'inline-block',
         fontSize: 65,
         verticalAlign: 'bottom'
-    },
-    container: {
     },
     positiveText: {
         color: 'green',
@@ -89,7 +88,12 @@ function Stock(props) {
                     <a className={classes.link} href={s.url} target='_blank' rel="noopener noreferrer"><li>{s.name}</li></a>
                     <ArrowDropUpIcon viewBox="-5 -5 24 24" className={classes.positiveIcon}/>
                     <p className={classes.positiveText}>+${s.priceChange}</p>                   
-                    <p className={classes.positiveText}>({s.percentChange}%)</p>                   
+                    <p className={classes.positiveText}>({s.percentChange}%)</p>  
+                    {
+                        s.description ? 
+                        <Description name={s.name} description={s.description} /> :
+                        null
+                    }
                 </div>
               )
           } else {
