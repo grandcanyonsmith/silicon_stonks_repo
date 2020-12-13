@@ -10,7 +10,6 @@ import NavWrapper from './nav-wrapper/navWrapper';
 import ForgotPassword from "./ForgotPassword/forgotPassword";
 import ChangePassword from "./ForgotPassword/changePassword";
 import NewCompetition from "./Competition/newCompetition";
-import axios from 'axios';
 import JoinCompetition from "./Competition/joinCompetition";
 import Overall from "./PastPerformance/overall";
 import Performance from "./PastPerformance/perfomance";

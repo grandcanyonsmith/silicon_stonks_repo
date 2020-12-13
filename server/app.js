@@ -15,7 +15,10 @@ require('dotenv').config();
 
 // Create the Express application
 var app = express();
-app.use(enforce.HTTPS({ trustProtoHeader: true }))
+const dev = app.get('env') !== 'production';
+if(!dev) {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }))
+}
 
 // Configures the database and opens a global connection that can be used in any module with `mongoose.connection`
 require('./config/database');
