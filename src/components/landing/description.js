@@ -1,48 +1,92 @@
 import React from 'react';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Divider from '@material-ui/core/Divider';
+
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
-    backgroundColor: 'rgb(0,0,0,0.9)'
+  paper: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: 'grey',
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
   container: {
-      padding: '10%'
-  },
-  div: {
-      display: 'inline-block'
+    display: 'inline-block'
   },
   button: {
-      backgroundColor: 'rgb(255,255,255,0.1)',
-      color: 'white',
-      marginLeft: '25px'
+    textDecoration: 'none',
+    backgroundColor: 'white',
+    width: '100%',
+    margin: '5px auto',
+    padding: '8px',
+    borderRadius: '25px',
+    color: 'black',
+    fontSize: '12px'
+  },
+  divider: {
+    margin: '50px 0px 50px 0px'
+  },
+  title: {
+    textAlign: 'center'
+  },
+  buttonContainer: {
+    width: '100%',
+    textAlign: 'center'
   }
 }));
 
 function Description(props) {
   const classes = useStyles();
+  // getModalStyle is not a pure function, we roll the style only on the first render
+  const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
-  const handleToggle = () => {
-    setOpen(!open);
-  };
+
+  const body = (
+    <div style={modalStyle} className={classes.paper}>
+      <h2 className={classes.title} id="simple-modal-title">Why {props.name}?</h2>
+      <Divider className={classes.divider}/>
+      <p id="simple-modal-description">
+        {props.description}
+      </p>
+      <Divider className={classes.divider} />
+      <div className={classes.buttonContainer}>
+        <a className={classes.button} href={props.url} target='_blank' rel="noopener noreferrer">See stock data</a>
+      </div>
+    </div>
+  );
 
   return (
-    <div className={classes.div}>
-      <Button className={classes.button} color="primary" onClick={handleToggle}>
-        Why {props.name}?
-      </Button>
-      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
-          <div className={classes.container}>
-            {props.description}
-          </div>
-      </Backdrop>
+    <div className={classes.container}>
+      <a onClick={handleOpen} className={classes.link}><li>{props.name}</li></a>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {body}
+      </Modal>
     </div>
   );
 }
