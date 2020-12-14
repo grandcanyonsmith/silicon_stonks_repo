@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Divider from '@material-ui/core/Divider';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 
 function getModalStyle() {
   const top = 50;
@@ -17,7 +18,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 400,
+    width: '65vw',
     backgroundColor: 'grey',
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -29,8 +30,6 @@ const useStyles = makeStyles((theme) => ({
   button: {
     textDecoration: 'none',
     backgroundColor: 'white',
-    width: '100%',
-    margin: '5px auto',
     padding: '8px',
     borderRadius: '25px',
     color: 'black',
@@ -43,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center'
   },
   buttonContainer: {
-    width: '100%',
     textAlign: 'center'
   }
 }));
@@ -71,7 +69,7 @@ function Description(props) {
       </p>
       <Divider className={classes.divider} />
       <div className={classes.buttonContainer}>
-        <a className={classes.button} href={props.url} target='_blank' rel="noopener noreferrer">See stock data</a>
+        <a className={classes.button} href={props.url} target='_blank' rel="noopener noreferrer">See Charts</a>
       </div>
     </div>
   );
